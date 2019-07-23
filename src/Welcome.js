@@ -8,10 +8,10 @@ export default function Welcome() {
                 style={{ height: 20 + "rem", width: 20 + "rem" }}
                 src="rootsLogo.png"
             />
-            <h1>Welcome to Mycorrhizae!</h1>
+            <h1 style={{ color: "#67912D" }}>Welcome to Mycorrhizae!</h1>
             <h2>Be a root of change! Learn, plant, eat, enjoy!</h2>
             <p>
-                Become a part of the fastest growing online community and
+                Become a part of the fastest growing online community to
                 exchange experiences in urban agriculture and gardening
             </p>
             <Registration />
