@@ -26,6 +26,10 @@ export default class Registration extends React.Component {
             .then(({ data }) => {
                 if (data.success) {
                     location.replace("./Logo");
+                } else if (!data.passconf) {
+                    this.setState({
+                        passerror: true
+                    });
                 } else {
                     this.setState({
                         error: true
@@ -42,6 +46,15 @@ export default class Registration extends React.Component {
                         className="error"
                     >
                         Ooops! Something went wrong. Try again 🥀
+                    </div>
+                )}
+                {this.state.passerror && (
+                    <div
+                        style={{ color: "red", fontSize: 3 + "rem" }}
+                        className="error"
+                    >
+                        Your passwords do not match. We know, it is hard with
+                        the ***. Try again 🥀
                     </div>
                 )}
                 <h1>Plant your profile! Register:</h1>

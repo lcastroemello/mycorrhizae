@@ -112,21 +112,30 @@ app.post("/Register", function(req, res) {
                 res.json({ success: false });
             });
     } else {
-        res.json({ success: false });
+        res.json({ passconf: false });
     }
 });
 
 //-------------------USER LOGIN-----------------------------
 
+//keeping user and password check separately as an exercise for form validation. It checks both but sends the same error message as a security against attacks.
 app.post("/Login", function(req, res) {
     db.getUserByEmail(req.body.email)
         .then(info => {
-            checkPassword(req.body.pass, info.rows[0].password_digest).then(
-                boolean => {
-                    req.session.userId = info.rows[0].id;
-                    res.json({ success: true });
-                }
-            );
+            if (info.rows.length > 0) {
+                checkPassword(req.body.pass, info.rows[0].password_digest).then(
+                    boolean => {
+                        if (!boolean) {
+                            res.json({ passfalse: true });
+                        } else {
+                            req.session.userId = info.rows[0].id;
+                            res.json({ success: true });
+                        }
+                    }
+                );
+            } else {
+                res.json({ usernoexist: true });
+            }
         })
         .catch(err => {
             console.log("login post err", err);

@@ -13,7 +13,7 @@ export default class Login extends React.Component {
         });
     }
     submit() {
-        console.log("testing state", this.state);
+        //keeping user and password check separately as an exercise for form validation. It checks both but sends the same error message as a security against attacks.
         axios
             .post("/Login", {
                 email: this.state.email,
@@ -22,6 +22,15 @@ export default class Login extends React.Component {
             .then(({ data }) => {
                 if (data.success) {
                     location.replace("./Logo");
+                } else if (data.usernoexist) {
+                    this.setState({
+                        noemail: true
+                    });
+                } else if (data.passfalse) {
+                    this.setState({
+                        wrongpass: true,
+                        noemail: false
+                    });
                 } else {
                     this.setState({
                         error: true
@@ -39,6 +48,26 @@ export default class Login extends React.Component {
                     >
                         Ooops! Something went wrong. Are you sure you are
                         already registered? Try again 🥀
+                    </div>
+                )}
+                {this.state.noemail && (
+                    <div
+                        style={{ color: "red", fontSize: 3 + "rem" }}
+                        className="error"
+                    >
+                        Are you sure you are already registered? Did you type
+                        your password right? Check your email and password and
+                        try again 🥀
+                    </div>
+                )}
+                {this.state.wrongpass && (
+                    <div
+                        style={{ color: "red", fontSize: 3 + "rem" }}
+                        className="error"
+                    >
+                        Are you sure you are already registered? Did you type
+                        your password right? Check your email and password and
+                        try again 🥀
                     </div>
                 )}
                 <h1>Water your branch! Log in:</h1>
