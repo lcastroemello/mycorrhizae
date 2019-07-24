@@ -74,13 +74,13 @@ function checkPassword(textEnteredInLoginForm, hashedPasswordFromDatabase) {
 
 // -----------------------RENDERING THE PAGE-----------------
 
-// app.get("/welcome", function(req, res) {
-//     if (req.session.userId) {
-//         res.redirect("/");
-//     } else {
-//         res.sendFile(__dirname + "/welcome");
-//     }
-// });
+app.get("/welcome", function(req, res) {
+    if (!req.session.userId) {
+        res.redirect("/");
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
+});
 
 app.get("*", function(req, res) {
     res.sendFile(__dirname + "/index.html");
@@ -89,25 +89,31 @@ app.get("*", function(req, res) {
 // ------------------REGISTERING NEW USERS-------------------
 
 app.post("/Register", function(req, res) {
-    hashPassword(req.body.pass)
-        .then(hash => {
-            return db.addUser(
-                req.body.first,
-                req.body.last,
-                req.body.email,
-                hash,
-                req.body.group_classes
-            );
-        })
-        .then(data => {
-            req.session.userId = data.rows[0].id;
-            console.log(data.rows[0].id);
-            res.json({ success: true });
-        })
-        .catch(err => {
-            console.log("register post err", err);
-            res.json({ success: false });
-        });
+    const {
+        first,
+        last,
+        email,
+        pass,
+        confpass,
+        group_classes: group
+    } = req.body;
+    if (pass === confpass) {
+        hashPassword(pass)
+            .then(hash => {
+                return db.addUser(first, last, email, hash, group);
+            })
+            .then(data => {
+                req.session.userId = data.rows[0].id;
+                console.log(data.rows[0].id);
+                res.json({ success: true });
+            })
+            .catch(err => {
+                console.log("register post err", err);
+                res.json({ success: false });
+            });
+    } else {
+        res.json({ success: false });
+    }
 });
 
 //-------------------USER LOGIN-----------------------------

@@ -20,6 +20,7 @@ export default class Registration extends React.Component {
                 last: this.state.last,
                 email: this.state.email,
                 pass: this.state.pass,
+                confpass: this.state.confpass,
                 group_classes: this.state.group_classes
             })
             .then(({ data }) => {
@@ -64,6 +65,12 @@ export default class Registration extends React.Component {
                     name="pass"
                     type="password"
                     placeholder="password"
+                    onChange={e => this.handleChange(e)}
+                />
+                <input
+                    name="confpass"
+                    type="password"
+                    placeholder="confirm password"
                     onChange={e => this.handleChange(e)}
                 />
                 <label> I am a/an: </label>
