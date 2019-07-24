@@ -5,6 +5,7 @@ const ca = require("chalk-animation");
 const bcrypt = require("bcryptjs");
 const db = require("./sql/db");
 const cookieSession = require("cookie-session");
+const csurf = require("csurf");
 
 app.use(express.static("./static"));
 
@@ -14,6 +15,13 @@ app.use(
         maxAge: 1000 * 60 * 60 * 24 * 14
     })
 );
+
+app.use(csurf());
+
+app.use(function(req, res, next) {
+    res.cookie("mytoken", req.csrfToken());
+    next();
+});
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -64,7 +72,7 @@ function checkPassword(textEnteredInLoginForm, hashedPasswordFromDatabase) {
     });
 }
 
-// -------------------------------------------
+// -----------------------RENDERING THE PAGE-----------------
 
 // app.get("/welcome", function(req, res) {
 //     if (req.session.userId) {
@@ -74,13 +82,11 @@ function checkPassword(textEnteredInLoginForm, hashedPasswordFromDatabase) {
 //     }
 // });
 
-// -----------------------RENDERING THE PAGE--------------------------
-
 app.get("*", function(req, res) {
     res.sendFile(__dirname + "/index.html");
 });
 
-// ------------------REGISTERING NEW USERS-----------------------
+// ------------------REGISTERING NEW USERS-------------------
 
 app.post("/Register", function(req, res) {
     hashPassword(req.body.pass)
@@ -100,10 +106,30 @@ app.post("/Register", function(req, res) {
         })
         .catch(err => {
             console.log("register post err", err);
+            res.json({ success: false });
         });
 });
-// ------------------STARTING OUR SERVER----------------------------
+
+//-------------------USER LOGIN-----------------------------
+
+app.post("/Login", function(req, res) {
+    db.getUserByEmail(req.body.email)
+        .then(info => {
+            checkPassword(req.body.pass, info.rows[0].password_digest).then(
+                boolean => {
+                    req.session.userId = info.rows[0].id;
+                    res.json({ success: true });
+                }
+            );
+        })
+        .catch(err => {
+            console.log("login post err", err);
+            res.json({ success: false });
+        });
+});
+
+// ------------------STARTING OUR SERVER---------------------
 
 app.listen(8080, function() {
-    ca.neon("Reacting to your love, sweetie");
+    ca.neon("Reacting to your wishes hon");
 });

@@ -22,3 +22,9 @@ exports.addUser = function addUser(
         [first_name, last_name, email, password, group_tag]
     );
 };
+
+//--------GETTING INFO from tables--------------
+
+exports.getUserByEmail = function getUserbyEmail(email) {
+    return db.query("SELECT * FROM users WHERE email=$1", [email]);
+};

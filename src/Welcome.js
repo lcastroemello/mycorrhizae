@@ -1,20 +1,32 @@
 import React from "react";
+import { HashRouter, Route, Switch } from "react-router-dom";
+
 import Registration from "./Registration";
+import Login from "./Login";
 
 export default function Welcome() {
     return (
-        <div style={{ display: "static", justifySelf: "center" }}>
-            <img
-                style={{ height: 20 + "rem", width: 20 + "rem" }}
-                src="rootsLogo.png"
-            />
-            <h1 style={{ color: "#67912D" }}>Welcome to Mycorrhizae!</h1>
-            <h2>Be a root of change! Learn, plant, eat, enjoy!</h2>
-            <p>
-                Become a part of the fastest growing online community to
-                exchange experiences in urban agriculture and gardening
-            </p>
-            <Registration />
-        </div>
+        <HashRouter>
+            <div
+                style={{
+                    display: "static",
+                    justifySelf: "center",
+                    background: "#F5FBEF"
+                }}
+            >
+                <img
+                    style={{ height: 20 + "rem", width: 20 + "rem" }}
+                    src="rootsLogo.png"
+                />
+                <h1 style={{ color: "#67912D" }}>Welcome to Mycorrhizae!</h1>
+                <h2>Be a root of change! Learn, plant, eat, enjoy!</h2>
+                <p>
+                    Become a part of the fastest growing online community in
+                    urban agriculture and gardening
+                </p>
+                <Route exact path="/" component={Registration} />
+                <Route path="/Login" component={Login} />
+            </div>
+        </HashRouter>
     );
 }
