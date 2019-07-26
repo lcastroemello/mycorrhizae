@@ -7,17 +7,17 @@ export default class BioEditor extends React.Component {
         this.state = {};
     }
     draft(e) {
-        console.log("testing draft: ", e.target.value);
         this.setState({
             draft: e.target.value
         });
     }
     async submit(e) {
         e.preventDefault();
-        console.log("testing button draft ", this.state.draft);
-        let data = await axios.post("/bio", {
+        await axios.post("/bio", {
             bio: this.state.draft
         });
+        this.props.bio(this.state.draft);
+        this.props.done(this.state.draft);
     }
     render() {
         return (
@@ -37,10 +37,8 @@ export default class BioEditor extends React.Component {
                         <button onClick={e => this.submit(e)}>Save</button>
                     </div>
                 )}
-
-                {this.props.bio}
                 <button onClick={() => this.setState({ editing: true })}>
-                    Add your bio!
+                    {this.props.button}
                 </button>
             </div>
         );
