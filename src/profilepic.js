@@ -4,9 +4,10 @@ export default function({ picture, first, last, onClick }) {
     return (
         <img
             style={{
-                justifySelf: "flex-end",
+                gridColumn: 2 / 3,
+                placeSelf: "end",
                 height: 5 + "rem",
-                width: 5 + "rem",
+                width: 3.8 + "rem",
                 border: "#67912D" + " solid " + 30 + "pix"
             }}
             src={picture}

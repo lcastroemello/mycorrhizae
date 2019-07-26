@@ -15,7 +15,6 @@ export default class Uploader extends React.Component {
         axios
             .post("/upload", formData)
             .then(function(resp) {
-                // console.log("resp", resp);
                 self.props.done(resp.data.url);
             })
             .catch(function(err) {
@@ -26,6 +25,7 @@ export default class Uploader extends React.Component {
         return (
             <div className="outer">
                 <div className="inner">
+                    <p onClick={() => this.props.close()}>X</p>
                     <h1> Want to change your profile picture?</h1>
                     <input
                         className="picUpload"

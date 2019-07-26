@@ -1,8 +1,8 @@
 import React from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
 
-import Registration from "./Registration";
-import Login from "./Login";
+import Registration from "./registration";
+import Login from "./login";
 
 export default function Welcome() {
     return (

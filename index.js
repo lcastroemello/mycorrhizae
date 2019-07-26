@@ -170,9 +170,7 @@ app.get("/user", async (req, res) => {
 
 //------------------Upload newpic modal---------------------
 app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
-    console.log("testing upload file", req.file);
     const url = config.s3Url + req.file.filename;
-    console.log("url", url);
     db.updateImg(url, req.session.userId)
         .then(() => {
             res.json({ url });
@@ -183,6 +181,16 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
 
     //end of req.file if else
 }); //end of app.post
+
+//--------------Add/Edit bio-------------------------------------------
+app.post("/bio", async (req, res) => {
+    try {
+        let storebio = db.updateBio(req.body.bio, req.session.userId);
+        res.json({ test: "test" });
+    } catch (err) {
+        console.log("err in post bio", err);
+    }
+});
 
 // -----------------------RENDERING WELCOME (KEEP IT IN THE END)-----------------
 

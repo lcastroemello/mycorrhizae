@@ -3,6 +3,7 @@ import axios from "./axios";
 
 import Uploader from "./uploader";
 import ProfilePic from "./profilepic";
+import Profile from "./profile";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -22,13 +23,22 @@ export default class App extends React.Component {
             return <img src="growing.gif" />;
         }
         return (
-            <div>
-                <div className="header" style={{ display: "flex" }}>
+            <div style={{ background: "#F5FBEF" }}>
+                <div
+                    className="header"
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr",
+                        borderBottom: "solid #67912D 2px",
+                        padding: "2rem"
+                    }}
+                >
                     <img
                         style={{
                             height: 5 + "rem",
                             width: 5 + "rem",
-                            justifySelf: "flex-start"
+                            placeSelf: "center / start",
+                            gridColumn: 1 / 2
                         }}
                         src="rootsLogo.png"
                         alt="roots logo"
@@ -48,8 +58,15 @@ export default class App extends React.Component {
                         done={picture =>
                             this.setState({ picture, uploaderIsVisible: false })
                         }
+                        close={() =>
+                            this.setState({ uploaderIsVisible: false })
+                        }
                     />
                 )}
+
+                <div className="body" style={{ background: "#d8f2c1" }}>
+                    <Profile />
+                </div>
             </div>
         );
     } //end of render

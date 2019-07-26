@@ -27,6 +27,9 @@ exports.updateImg = function updateImg(url, id) {
     return db.query("UPDATE users SET picture = $1 WHERE id=$2", [url, id]);
 };
 
+exports.updateBio = function updateBio(bio, id) {
+    return db.query("UPDATE users SET bio = $1 WHERE id=$2", [bio, id]);
+};
 //--------GETTING INFO from tables--------------
 
 exports.getUserByEmail = function getUserbyEmail(email) {
