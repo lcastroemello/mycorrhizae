@@ -25,7 +25,7 @@ export default function Welcome() {
                     urban agriculture and gardening
                 </p>
                 <Route exact path="/" component={Registration} />
-                <Route path="/Login" component={Login} />
+                <Route path="/login" component={Login} />
             </div>
         </HashRouter>
     );

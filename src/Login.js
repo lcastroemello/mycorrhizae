@@ -13,15 +13,14 @@ export default class Login extends React.Component {
         });
     }
     submit() {
-        //keeping user and password check separately as an exercise for form validation. It checks both but sends the same error message as a security against attacks.
         axios
-            .post("/Login", {
+            .post("/login", {
                 email: this.state.email,
                 pass: this.state.pass
             })
             .then(({ data }) => {
                 if (data.success) {
-                    location.replace("./Logo");
+                    location.replace("./app");
                 } else if (data.usernoexist) {
                     this.setState({
                         noemail: true

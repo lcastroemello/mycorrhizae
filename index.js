@@ -6,6 +6,8 @@ const bcrypt = require("bcryptjs");
 const db = require("./sql/db");
 const cookieSession = require("cookie-session");
 const csurf = require("csurf");
+const s3 = require("./s3");
+const config = require("./config");
 
 app.use(express.static("./static"));
 
@@ -27,6 +29,32 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
 app.use(compression());
+
+//-------------------FormData API----------------------
+
+var multer = require("multer");
+var uidSafe = require("uid-safe");
+var path = require("path");
+
+var diskStorage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function(req, file, callback) {
+        uidSafe(24).then(function(uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    }
+});
+
+var uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152
+    }
+});
+
+//--------------------BUNDLE.JS-------------------------
 
 if (process.env.NODE_ENV != "production") {
     app.use(
@@ -72,23 +100,9 @@ function checkPassword(textEnteredInLoginForm, hashedPasswordFromDatabase) {
     });
 }
 
-// -----------------------RENDERING THE PAGE-----------------
-
-app.get("/welcome", function(req, res) {
-    if (!req.session.userId) {
-        res.redirect("/");
-    } else {
-        res.sendFile(__dirname + "/index.html");
-    }
-});
-
-app.get("*", function(req, res) {
-    res.sendFile(__dirname + "/index.html");
-});
-
 // ------------------REGISTERING NEW USERS-------------------
 
-app.post("/Register", function(req, res) {
+app.post("/register", function(req, res) {
     const {
         first,
         last,
@@ -117,9 +131,7 @@ app.post("/Register", function(req, res) {
 });
 
 //-------------------USER LOGIN-----------------------------
-
-//keeping user and password check separately as an exercise for form validation. It checks both but sends the same error message as a security against attacks.
-app.post("/Login", function(req, res) {
+app.post("/login", function(req, res) {
     db.getUserByEmail(req.body.email)
         .then(info => {
             if (info.rows.length > 0) {
@@ -141,6 +153,47 @@ app.post("/Login", function(req, res) {
             console.log("login post err", err);
             res.json({ success: false });
         });
+});
+
+//---------------------RENDERING APP------------
+
+app.get("/user", async (req, res) => {
+    let user = await db.getUserById(req.session.userId);
+    user = user.rows[0];
+    console.log("testing user", user);
+    if (!user.picture) {
+        user.picture = "/default.png";
+        console.log("user after if", user);
+    }
+    res.json(user);
+});
+
+//------------------Upload newpic modal---------------------
+app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
+    console.log("testing upload file", req.file);
+    const url = config.s3Url + req.file.filename;
+    console.log("url", url);
+    db.updateImg(url, req.session.userId)
+        .then(() => {
+            res.json({ url });
+        })
+        .catch(err => {
+            console.log("err in adding to db", err);
+        });
+
+    //end of req.file if else
+}); //end of app.post
+
+// -----------------------RENDERING WELCOME (KEEP IT IN THE END)-----------------
+
+app.get("*", function(req, res) {
+    if (!req.session.userId && req.url != "/welcome") {
+        res.redirect("/welcome");
+    } else if (req.session.userId && req.url == "/welcome") {
+        res.redirect("/app");
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
 });
 
 // ------------------STARTING OUR SERVER---------------------

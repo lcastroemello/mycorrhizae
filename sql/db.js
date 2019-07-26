@@ -23,8 +23,19 @@ exports.addUser = function addUser(
     );
 };
 
+exports.updateImg = function updateImg(url, id) {
+    return db.query("UPDATE users SET picture = $1 WHERE id=$2", [url, id]);
+};
+
 //--------GETTING INFO from tables--------------
 
 exports.getUserByEmail = function getUserbyEmail(email) {
     return db.query("SELECT * FROM users WHERE email=$1", [email]);
+};
+
+exports.getUserById = function getUserById(id) {
+    return db.query(
+        "SELECT id, first, last, group_tag, picture, bio FROM users WHERE id=$1",
+        [id]
+    );
 };

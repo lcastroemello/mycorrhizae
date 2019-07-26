@@ -25,7 +25,7 @@ export default class Registration extends React.Component {
             })
             .then(({ data }) => {
                 if (data.success) {
-                    location.replace("./Logo");
+                    location.replace("./app");
                 } else if (!data.passconf) {
                     this.setState({
                         passerror: true

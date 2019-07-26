@@ -8,6 +8,8 @@ CREATE TABLE users(
     email VARCHAR (255) NOT NULL CHECK (email <> '') UNIQUE,
     password_digest VARCHAR (255) NOT NULL CHECK (password_digest <> ''),
     group_tag VARCHAR (255) NOT NULL,
+    picture VARCHAR (300),
+    bio VARCHAR (2000),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
