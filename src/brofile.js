@@ -9,7 +9,7 @@ export default class Brofile extends React.Component {
     async componentDidMount() {
         const { id } = this.props.match.params;
         const { data } = await axios.get("/users/" + id + ".json");
-        if (data == "same user") {
+        if (data == "same user" || "user does not exist") {
             this.props.history.push("/");
         } else {
             this.setState({

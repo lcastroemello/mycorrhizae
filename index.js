@@ -197,12 +197,19 @@ app.get("/users/:id.json", async (req, res) => {
     try {
         if (req.params.id != req.session.userId) {
             let userData = await db.getUserById(req.params.id);
-            res.json(userData.rows[0]);
+
+            if (!userData) {
+                res.json("user does not exist");
+                console.log("user does not exist");
+            } else {
+                res.json(userData.rows[0]);
+            }
         } else {
             res.json("same user");
         }
     } catch (err) {
         console.log("err in get brofile", err);
+        res.json("user does not exist");
     }
 });
 
