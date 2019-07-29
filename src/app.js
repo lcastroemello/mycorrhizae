@@ -18,9 +18,7 @@ export default class App extends React.Component {
     } //end of constructor
     async componentDidMount() {
         const { data } = await axios.get("/user");
-        console.log("this is data", data);
         this.setState(data);
-        console.log("testing brofile", { Brofile });
     }
 
     render() {
@@ -97,7 +95,16 @@ export default class App extends React.Component {
                             }}
                         />
 
-                        <Route path="/user/:id" component={Brofile} />
+                        <Route
+                            path="/user/:id"
+                            render={props => (
+                                <Brofile
+                                    key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                />
+                            )}
+                        />
                         <Link to="/">home</Link>
                     </div>
                 </BrowserRouter>

@@ -195,8 +195,12 @@ app.post("/bio", async (req, res) => {
 
 app.get("/users/:id.json", async (req, res) => {
     try {
-        let userData = await db.getUserById(req.params.id);
-        res.json(userData.rows[0]);
+        if (req.params.id != req.session.userId) {
+            let userData = await db.getUserById(req.params.id);
+            res.json(userData.rows[0]);
+        } else {
+            res.json("same user");
+        }
     } catch (err) {
         console.log("err in get brofile", err);
     }

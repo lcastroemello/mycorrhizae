@@ -9,12 +9,16 @@ export default class Brofile extends React.Component {
     async componentDidMount() {
         const { id } = this.props.match.params;
         const { data } = await axios.get("/users/" + id + ".json");
-        this.setState({
-            first: data.first,
-            last: data.last,
-            bio: data.bio,
-            picture: data.picture
-        });
+        if (data == "same user") {
+            this.props.history.push("/");
+        } else {
+            this.setState({
+                first: data.first,
+                last: data.last,
+                bio: data.bio,
+                picture: data.picture
+            });
+        }
     }
     render() {
         return (
