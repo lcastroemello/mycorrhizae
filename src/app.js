@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "./axios";
-import { Route, BrowserRouter } from "react-router-dom";
+import { Route, BrowserRouter, Link } from "react-router-dom";
 
 import Uploader from "./uploader";
 import ProfilePic from "./profilepic";
@@ -20,7 +20,7 @@ export default class App extends React.Component {
         const { data } = await axios.get("/user");
         console.log("this is data", data);
         this.setState(data);
-        console.log("this is state after get", this.state);
+        console.log("testing brofile", { Brofile });
     }
 
     render() {
@@ -45,7 +45,7 @@ export default class App extends React.Component {
                             placeSelf: "center / start",
                             gridColumn: 1 / 2
                         }}
-                        src="rootsLogo.png"
+                        src="/rootsLogo.png"
                         alt="roots logo"
                     />
 
@@ -69,43 +69,36 @@ export default class App extends React.Component {
                     />
                 )}
 
-                <div className="body" style={{ background: "#d8f2c1" }}>
-                    <Profile
-                        picture={this.state.picture}
-                        first={this.state.first}
-                        last={this.state.last}
-                        bio={this.state.bio}
-                        onClick={() =>
-                            this.setState({ uploaderIsVisible: true })
-                        }
-                        done={bio => this.setState({ bio })}
-                    />
-                </div>
                 <BrowserRouter>
                     <div>
                         <Route
                             exact
                             path="/"
-                            component={Profile}
                             render={props => {
                                 return (
-                                    <Profile
-                                        picture={this.state.picture}
-                                        first={this.state.first}
-                                        last={this.state.last}
-                                        bio={this.state.bio}
-                                        onClick={() =>
-                                            this.setState({
-                                                uploaderIsVisible: true
-                                            })
-                                        }
-                                        done={bio => this.setState({ bio })}
-                                    />
+                                    <div
+                                        className="body"
+                                        style={{ background: "#d8f2c1" }}
+                                    >
+                                        <Profile
+                                            picture={this.state.picture}
+                                            first={this.state.first}
+                                            last={this.state.last}
+                                            bio={this.state.bio}
+                                            onClick={() =>
+                                                this.setState({
+                                                    uploaderIsVisible: true
+                                                })
+                                            }
+                                            done={bio => this.setState({ bio })}
+                                        />
+                                    </div>
                                 );
                             }}
                         />
 
                         <Route path="/user/:id" component={Brofile} />
+                        <Link to="/">home</Link>
                     </div>
                 </BrowserRouter>
             </div>
