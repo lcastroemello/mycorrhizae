@@ -16,7 +16,9 @@ export default class BioEditor extends React.Component {
         await axios.post("/bio", {
             bio: this.state.draft
         });
-        this.props.bio(this.state.draft);
+        this.setState({
+            editing: false
+        });
         this.props.done(this.state.draft);
     }
     render() {

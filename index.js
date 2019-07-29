@@ -186,7 +186,6 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
 app.post("/bio", async (req, res) => {
     try {
         let storebio = db.updateBio(req.body.bio, req.session.userId);
-        res.json({ test: "test" });
     } catch (err) {
         console.log("err in post bio", err);
     }

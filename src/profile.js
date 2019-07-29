@@ -9,7 +9,6 @@ export default class Profile extends React.Component {
         this.state = {};
     }
     componentDidMount() {
-        console.log("profile appears", this.props);
         if (!this.props.bio) {
             this.setState({
                 button: "Add your bio"
@@ -20,6 +19,9 @@ export default class Profile extends React.Component {
             });
         }
     }
+    done(e) {
+        console.log("this is e", e);
+    }
     render() {
         return (
             <div
@@ -29,16 +31,13 @@ export default class Profile extends React.Component {
                     background: "#d8f2c1"
                 }}
             >
-                <img
-                    style={{
-                        height: "20rem",
-                        width: "15rem",
-                        placeSelf: "center / start",
-                        gridColumn: 1 / 2,
-                        padding: "3rem"
-                    }}
-                    src={this.props.picture}
+                <ProfilePic
+                    picture={this.props.picture}
+                    first={this.props.first}
+                    last={this.props.last}
+                    onClick={this.props.onClick}
                 />
+
                 <div
                     style={{
                         placeSelf: "center / start",
@@ -51,8 +50,7 @@ export default class Profile extends React.Component {
                     <div>{this.props.bio}</div>
                     <BioEditor
                         button={this.state.button}
-                        bio={bio => this.setState({ bio })}
-                        done={bio => this.alterBio({ bio })}
+                        done={this.props.done}
                     />
                 </div>
             </div>
