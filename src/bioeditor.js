@@ -4,7 +4,12 @@ import axios from "./axios";
 export default class BioEditor extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            editing: false
+        };
+    }
+    componentDidMount() {
+        this.setState((state, props) => ({ draft: props.bio }));
     }
     draft(e) {
         this.setState({
@@ -13,13 +18,18 @@ export default class BioEditor extends React.Component {
     }
     async submit(e) {
         e.preventDefault();
-        await axios.post("/bio", {
-            bio: this.state.draft
-        });
-        this.setState({
-            editing: false
-        });
-        this.props.done(this.state.draft);
+        try {
+            const { data } = await axios.post("/bio", {
+                bio: this.state.draft
+            });
+            console.log("bio", data);
+            this.props.done(this.state.draft);
+            this.setState({
+                editing: false
+            });
+        } catch (err) {
+            console.log("err in post/bio", err);
+        }
     }
     render() {
         return (
@@ -39,9 +49,16 @@ export default class BioEditor extends React.Component {
                         <button onClick={e => this.submit(e)}>Save</button>
                     </div>
                 )}
-                <button onClick={() => this.setState({ editing: true })}>
-                    {this.props.button}
-                </button>
+                {!this.state.editing && (
+                    <div>
+                        <div>{this.state.draft}</div>
+                        <button
+                            onClick={() => this.setState({ editing: true })}
+                        >
+                            {this.props.bio ? "Edit bio" : "Add bio"}
+                        </button>
+                    </div>
+                )}
             </div>
         );
     }

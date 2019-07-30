@@ -98,13 +98,26 @@ export default class App extends React.Component {
                                             picture={this.state.picture}
                                             first={this.state.first}
                                             last={this.state.last}
-                                            bio={this.state.bio}
-                                            onClick={() =>
-                                                this.setState({
-                                                    uploaderIsVisible: true
-                                                })
+                                            bioEditor={
+                                                <BioEditor
+                                                    bio={this.state.bio}
+                                                    done={bio =>
+                                                        this.setState({ bio })
+                                                    }
+                                                />
                                             }
-                                            done={bio => this.setState({ bio })}
+                                            profilePic={
+                                                <ProfilePic
+                                                    first={this.state.first}
+                                                    last={this.state.last}
+                                                    picture={this.state.picture}
+                                                    onClick={() => {
+                                                        this.setState({
+                                                            uploaderIsVisible: true
+                                                        });
+                                                    }}
+                                                />
+                                            }
                                         />
                                     </div>
                                 );
