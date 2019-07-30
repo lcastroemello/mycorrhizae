@@ -191,7 +191,7 @@ app.post("/bio", async (req, res) => {
     }
 });
 
-//-----------------Rendering brofile--------
+//------------------------------Rendering brofile----------------------
 
 app.get("/users/:id.json", async (req, res) => {
     try {
@@ -210,6 +210,18 @@ app.get("/users/:id.json", async (req, res) => {
     } catch (err) {
         console.log("err in get brofile", err);
         res.json("user does not exist");
+    }
+});
+
+//----------------------FIND PEOPLE--------------------------------
+
+app.get("/users.json", async function(req, res) {
+    try {
+        const userList = await db.getLastUsersList();
+        console.log("testing request find people", userList.rows);
+        res.json(userList.rows);
+    } catch (err) {
+        console.log("err in get find people", err);
     }
 });
 

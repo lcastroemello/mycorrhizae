@@ -42,3 +42,9 @@ exports.getUserById = function getUserById(id) {
         [id]
     );
 };
+
+exports.getLastUsersList = function getLastUsersList() {
+    return db.query(
+        "SELECT id, first, last, group_tag, picture FROM users ORDER BY id DESC LIMIT 3"
+    );
+};

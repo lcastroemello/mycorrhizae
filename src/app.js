@@ -7,6 +7,7 @@ import ProfilePic from "./profilepic";
 import Profile from "./profile";
 import BioEditor from "./bioeditor";
 import Brofile from "./brofile";
+import FindBros from "./findpeople";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -105,6 +106,7 @@ export default class App extends React.Component {
                                 />
                             )}
                         />
+                        <Route path="/users" render={props => <FindBros />} />
                         <Link to="/">home</Link>
                     </div>
                 </BrowserRouter>
