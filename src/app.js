@@ -27,48 +27,55 @@ export default class App extends React.Component {
             return <img src="growing.gif" />;
         }
         return (
-            <div style={{ background: "#F5FBEF", bottom: 0 }}>
-                <div
-                    className="header"
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr",
-                        borderBottom: "solid #67912D 2px",
-                        padding: "2rem"
-                    }}
-                >
-                    <img
+            <BrowserRouter>
+                <div style={{ background: "#F5FBEF", bottom: 0 }}>
+                    <div
+                        className="header"
                         style={{
-                            height: 5 + "rem",
-                            width: 5 + "rem",
-                            placeSelf: "center / start",
-                            gridColumn: 1 / 2
+                            display: "grid",
+                            gridTemplateColumns: "1fr 1fr 1fr",
+                            borderBottom: "solid #67912D 2px",
+                            padding: "2rem"
                         }}
-                        src="/rootsLogo.png"
-                        alt="roots logo"
-                    />
+                    >
+                        <img
+                            style={{
+                                height: 5 + "rem",
+                                width: 5 + "rem",
+                                placeSelf: "center / start",
+                                gridColumn: 1 / 2
+                            }}
+                            src="/rootsLogo.png"
+                            alt="roots logo"
+                        />
 
-                    <ProfilePic
-                        picture={this.state.picture}
-                        first={this.state.first}
-                        last={this.state.last}
-                        onClick={() =>
-                            this.setState({ uploaderIsVisible: true })
-                        }
-                    />
-                </div>
-                {this.state.uploaderIsVisible && (
-                    <Uploader
-                        done={picture =>
-                            this.setState({ picture, uploaderIsVisible: false })
-                        }
-                        close={() =>
-                            this.setState({ uploaderIsVisible: false })
-                        }
-                    />
-                )}
+                        <div className="links" style={{ gridColumn: 2 / 3 }}>
+                            <Link to="/users">Find buddy branches!</Link>
+                        </div>
 
-                <BrowserRouter>
+                        <ProfilePic
+                            picture={this.state.picture}
+                            first={this.state.first}
+                            last={this.state.last}
+                            onClick={() =>
+                                this.setState({ uploaderIsVisible: true })
+                            }
+                        />
+                    </div>
+                    {this.state.uploaderIsVisible && (
+                        <Uploader
+                            done={picture =>
+                                this.setState({
+                                    picture,
+                                    uploaderIsVisible: false
+                                })
+                            }
+                            close={() =>
+                                this.setState({ uploaderIsVisible: false })
+                            }
+                        />
+                    )}
+
                     <div>
                         <Route
                             exact
@@ -109,8 +116,8 @@ export default class App extends React.Component {
                         <Route path="/users" render={props => <FindBros />} />
                         <Link to="/">home</Link>
                     </div>
-                </BrowserRouter>
-            </div>
+                </div>
+            </BrowserRouter>
         );
     } //end of render
 } //end of class

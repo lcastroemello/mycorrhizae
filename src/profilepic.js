@@ -4,7 +4,7 @@ export default function({ picture, first, last, onClick }) {
     return (
         <img
             style={{
-                gridColumn: 2 / 3,
+                gridColumn: 3 / 4,
                 placeSelf: "end",
                 height: 5 + "rem",
                 width: 3.8 + "rem",
