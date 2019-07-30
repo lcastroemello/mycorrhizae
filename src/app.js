@@ -33,7 +33,7 @@ export default class App extends React.Component {
                         className="header"
                         style={{
                             display: "grid",
-                            gridTemplateColumns: "1fr 1fr 1fr",
+                            gridTemplateColumns: "1fr 1fr 7rem",
                             borderBottom: "solid #67912D 2px",
                             padding: "2rem"
                         }}
@@ -49,8 +49,16 @@ export default class App extends React.Component {
                             alt="roots logo"
                         />
 
-                        <div className="links" style={{ gridColumn: 2 / 3 }}>
+                        <div
+                            className="links"
+                            style={{
+                                gridColumn: 2 / 3,
+                                placeSelf: "end"
+                            }}
+                        >
                             <Link to="/users">Find buddy branches!</Link>
+                            <br />
+                            <Link to="/">My profile</Link>
                         </div>
 
                         <ProfilePic
