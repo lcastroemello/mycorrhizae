@@ -27,7 +27,7 @@ export default class App extends React.Component {
             return <img src="growing.gif" />;
         }
         return (
-            <div style={{ background: "#F5FBEF" }}>
+            <div style={{ background: "#F5FBEF", bottom: 0 }}>
                 <div
                     className="header"
                     style={{

@@ -160,10 +160,8 @@ app.post("/login", function(req, res) {
 app.get("/user", async (req, res) => {
     let user = await db.getUserById(req.session.userId);
     user = user.rows[0];
-    console.log("testing user", user);
     if (!user.picture) {
         user.picture = "/default.png";
-        console.log("user after if", user);
     }
     res.json(user);
 });
@@ -193,16 +191,14 @@ app.post("/bio", async (req, res) => {
 
 //------------------------------Rendering brofile----------------------
 
-app.get("/users/:id.json", async (req, res) => {
+app.get("/user/:id.json", async (req, res) => {
     try {
         if (req.params.id != req.session.userId) {
             let userData = await db.getUserById(req.params.id);
-
-            if (!userData) {
-                res.json("user does not exist");
-                console.log("user does not exist");
-            } else {
+            if (userData) {
                 res.json(userData.rows[0]);
+            } else {
+                res.json("user does not exist");
             }
         } else {
             res.json("same user");
@@ -218,7 +214,6 @@ app.get("/users/:id.json", async (req, res) => {
 app.get("/users.json", async function(req, res) {
     try {
         const userList = await db.getLastUsersList();
-        console.log("testing request find people", userList.rows);
         res.json(userList.rows);
     } catch (err) {
         console.log("err in get find people", err);

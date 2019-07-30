@@ -8,16 +8,16 @@ export default class Brofile extends React.Component {
     }
     async componentDidMount() {
         const { id } = this.props.match.params;
-        const { data } = await axios.get("/users/" + id + ".json");
-        if (data == "same user" || "user does not exist") {
-            this.props.history.push("/");
-        } else {
+        const { data } = await axios.get("/user/" + id + ".json");
+        if (data != "same user" || "user does not exist") {
             this.setState({
                 first: data.first,
                 last: data.last,
                 bio: data.bio,
                 picture: data.picture
             });
+        } else {
+            this.props.history.push("/");
         }
     }
     render() {
@@ -30,6 +30,7 @@ export default class Brofile extends React.Component {
                 }}
             >
                 <img
+                    style={{ height: 20 + "rem", width: 16 + "rem" }}
                     src={this.state.picture}
                     alt={`${this.state.first} ${this.state.last}`}
                 />
