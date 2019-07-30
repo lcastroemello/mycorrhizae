@@ -4,18 +4,34 @@ import axios from "./axios";
 
 export default function FindBros() {
     const [users, setUsers] = useState();
+    const [firstRender, setFirstRender] = useState(true);
     const [val, setVal] = useState();
-
-    useEffect(() => {
-        (async () => {
-            const userList = await axios.get("/users.json");
-            setUsers(userList.data);
-        })();
-    }, []);
+    useEffect(
+        () => {
+            if (!val) {
+                (async () => {
+                    const userList = await axios.get("/users.json");
+                    setUsers(userList.data);
+                    setFirstRender(true);
+                })();
+            } else {
+                (async () => {
+                    const searchUser = await axios.get(
+                        "/users/2/" + val + ".json"
+                    );
+                    setUsers(searchUser.data);
+                    setFirstRender(false);
+                })();
+            }
+        },
+        [val]
+    );
     return (
         <div>
             <h1>FIND BUDDY BRANCHES</h1>
-            <h2>Checkout our new sprouts!</h2>
+
+            {firstRender && <h2>Checkout our new sprouts!</h2>}
+
             <div>
                 {users &&
                     users.map(users => {
@@ -44,6 +60,11 @@ export default function FindBros() {
                             </div>
                         );
                     })}
+
+                <div>
+                    <h2>Are you looking for someone in particular?</h2>
+                    <input onChange={e => setVal(e.target.value)} />
+                </div>
             </div>
         </div>
     );

@@ -48,3 +48,10 @@ exports.getLastUsersList = function getLastUsersList() {
         "SELECT id, first, last, group_tag, picture FROM users ORDER BY id DESC LIMIT 3"
     );
 };
+
+exports.getUsersInSearch = function getUsersInSearch(val) {
+    return db.query(
+        `SELECT id, first, last, group_tag, picture FROM users WHERE first ILIKE $1 ORDER by first ASC`,
+        [val + "%"]
+    );
+};

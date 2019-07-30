@@ -216,7 +216,18 @@ app.get("/users.json", async function(req, res) {
         const userList = await db.getLastUsersList();
         res.json(userList.rows);
     } catch (err) {
-        console.log("err in get find people", err);
+        console.log("err in get render find people", err);
+    }
+});
+
+app.get("/users/2/:val.json", async function(req, res) {
+    try {
+        console.log("testing req.val", req.params);
+        const searchUser = await db.getUsersInSearch(req.params.val);
+        console.log("testing search user", searchUser.rows);
+        res.json(searchUser.rows);
+    } catch (err) {
+        console.log("err in get query find people", err);
     }
 });
 
