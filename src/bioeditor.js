@@ -7,6 +7,7 @@ export default class BioEditor extends React.Component {
         this.state = {
             editing: false
         };
+        this.submit = this.submit.bind(this);
     }
     componentDidMount() {
         this.setState((state, props) => ({ draft: props.bio }));
@@ -22,7 +23,6 @@ export default class BioEditor extends React.Component {
             const { data } = await axios.post("/bio", {
                 bio: this.state.draft
             });
-            console.log("bio", data);
             this.props.done(this.state.draft);
             this.setState({
                 editing: false
@@ -32,6 +32,7 @@ export default class BioEditor extends React.Component {
         }
     }
     render() {
+        console.log("this.state", this.state);
         return (
             <div>
                 {this.state.editing && (
@@ -43,7 +44,9 @@ export default class BioEditor extends React.Component {
                             here!
                         </h2>
                         <textarea
-                            onChange={e => this.draft(e)}
+                            onChange={({ target }) => {
+                                this.setState({ draft: target.value });
+                            }}
                             name="draftBio"
                         />
                         <button onClick={e => this.submit(e)}>Save</button>
@@ -51,12 +54,14 @@ export default class BioEditor extends React.Component {
                 )}
                 {!this.state.editing && (
                     <div>
-                        <div>{this.state.draft}</div>
-                        <button
-                            onClick={() => this.setState({ editing: true })}
-                        >
-                            {this.props.bio ? "Edit bio" : "Add bio"}
-                        </button>
+                        <div>
+                            {this.props.bio && <p>{this.props.bio}</p>}
+                            <button
+                                onClick={() => this.setState({ editing: true })}
+                            >
+                                {this.props.bio ? "Edit bio" : "Add bio"}
+                            </button>
+                        </div>
                     </div>
                 )}
             </div>

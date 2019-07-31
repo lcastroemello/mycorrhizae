@@ -184,6 +184,7 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
 app.post("/bio", async (req, res) => {
     try {
         let storebio = db.updateBio(req.body.bio, req.session.userId);
+        res.json({ success: true });
     } catch (err) {
         console.log("err in post bio", err);
     }
@@ -227,6 +228,19 @@ app.get("/users/2/:val.json", async function(req, res) {
     } catch (err) {
         console.log("err in get query find people", err);
     }
+});
+
+//-------------------------FRIENDSHIP BUTTON------------------------------------
+
+app.get("/getbutton", async function(req, res) {
+    console.log(req.session.userId);
+    res.json("get worked");
+    // try {
+    //     // const getButton = await db.getButtonStatus(user_id, bro_id);
+    //     // console.log("testing getbutton", getButton);
+    // } catch (err) {
+    //     console.log("err in getbutton", err);
+    // }
 });
 
 // -----------------------RENDERING WELCOME (KEEP IT IN THE END)-----------------

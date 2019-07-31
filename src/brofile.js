@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "./axios";
 
+import FriendButton from "./friendbutton";
+
 export default class Brofile extends React.Component {
     constructor(props) {
         super(props);
@@ -29,11 +31,14 @@ export default class Brofile extends React.Component {
                     background: "#d8f2c1"
                 }}
             >
-                <img
-                    style={{ height: 20 + "rem", width: 16 + "rem" }}
-                    src={this.state.picture}
-                    alt={`${this.state.first} ${this.state.last}`}
-                />
+                <div style={{ gridColumn: 1 / 2 }}>
+                    <img
+                        style={{ height: 20 + "rem", width: 16 + "rem" }}
+                        src={this.state.picture}
+                        alt={`${this.state.first} ${this.state.last}`}
+                    />
+                    <FriendButton />
+                </div>
                 <div
                     style={{
                         placeSelf: "center / start",

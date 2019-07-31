@@ -88,40 +88,38 @@ export default class App extends React.Component {
                         <Route
                             exact
                             path="/"
-                            render={props => {
-                                return (
-                                    <div
-                                        className="body"
-                                        style={{ background: "#d8f2c1" }}
-                                    >
-                                        <Profile
-                                            picture={this.state.picture}
-                                            first={this.state.first}
-                                            last={this.state.last}
-                                            bioEditor={
-                                                <BioEditor
-                                                    bio={this.state.bio}
-                                                    done={bio =>
-                                                        this.setState({ bio })
-                                                    }
-                                                />
-                                            }
-                                            profilePic={
-                                                <ProfilePic
-                                                    first={this.state.first}
-                                                    last={this.state.last}
-                                                    picture={this.state.picture}
-                                                    onClick={() => {
-                                                        this.setState({
-                                                            uploaderIsVisible: true
-                                                        });
-                                                    }}
-                                                />
-                                            }
-                                        />
-                                    </div>
-                                );
-                            }}
+                            render={() => (
+                                <div
+                                    className="body"
+                                    style={{ background: "#d8f2c1" }}
+                                >
+                                    <Profile
+                                        picture={this.state.picture}
+                                        first={this.state.first}
+                                        last={this.state.last}
+                                        bioEditor={
+                                            <BioEditor
+                                                bio={this.state.bio}
+                                                done={bio =>
+                                                    this.setState({ bio })
+                                                }
+                                            />
+                                        }
+                                        profilePic={
+                                            <ProfilePic
+                                                first={this.state.first}
+                                                last={this.state.last}
+                                                picture={this.state.picture}
+                                                onClick={() => {
+                                                    this.setState({
+                                                        uploaderIsVisible: true
+                                                    });
+                                                }}
+                                            />
+                                        }
+                                    />
+                                </div>
+                            )}
                         />
 
                         <Route
