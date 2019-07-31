@@ -37,7 +37,10 @@ export default class Brofile extends React.Component {
                         src={this.state.picture}
                         alt={`${this.state.first} ${this.state.last}`}
                     />
-                    <FriendButton />
+                    <FriendButton
+                        broId={this.props.match.params.id}
+                        userId={this.props.userId}
+                    />
                 </div>
                 <div
                     style={{

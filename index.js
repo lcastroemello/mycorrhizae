@@ -232,17 +232,53 @@ app.get("/users/2/:val.json", async function(req, res) {
 
 //-------------------------FRIENDSHIP BUTTON------------------------------------
 
-app.get("/getbutton", async function(req, res) {
-    console.log(req.session.userId);
-    res.json("get worked");
-    // try {
-    //     // const getButton = await db.getButtonStatus(user_id, bro_id);
-    //     // console.log("testing getbutton", getButton);
-    // } catch (err) {
-    //     console.log("err in getbutton", err);
-    // }
+app.get("/getbutton/:broId", async function(req, res) {
+    try {
+        const getButton = await db.getFriendshipStatus(
+            req.session.userId,
+            req.params.broId
+        );
+        res.json(getButton.rows);
+    } catch (err) {
+        console.log("err in get getbutton", err);
+    }
 });
 
+app.post("/getbutton/add/:broId", async function(req, res) {
+    try {
+        const addFriendship = await db.addFriendship(
+            req.session.userId,
+            req.params.broId
+        );
+        res.json(addFriendship.rows);
+    } catch (err) {
+        console.log("err in post add getbutton", err);
+    }
+});
+
+app.post("/getbutton/delete/:broId", async function(req, res) {
+    try {
+        const deleteFriendship = await db.deleteFriendship(
+            req.session.userId,
+            req.params.broId
+        );
+        res.json({ success: true });
+    } catch (err) {
+        console.log("err in post delete getbutton", err);
+    }
+});
+
+app.post("/getbutton/accept/:broId", async function(req, res) {
+    try {
+        const accept = await db.acceptFriendship(
+            req.params.broId,
+            req.session.userId
+        );
+        res.json({ success: true });
+    } catch (err) {
+        console.log("err in post accept getbutton", err);
+    }
+});
 // -----------------------RENDERING WELCOME (KEEP IT IN THE END)-----------------
 
 app.get("*", function(req, res) {

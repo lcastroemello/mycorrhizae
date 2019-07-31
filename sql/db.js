@@ -7,7 +7,7 @@ let db;
 db = spicedPg(`postgres:postgres:postgres@localhost:5432/socialmedia`);
 // }
 
-//-------ADDING info to tables-------------
+//-------ADDING info to users-------------
 
 exports.addUser = function addUser(
     first_name,
@@ -30,7 +30,7 @@ exports.updateImg = function updateImg(url, id) {
 exports.updateBio = function updateBio(bio, id) {
     return db.query("UPDATE users SET bio = $1 WHERE id=$2", [bio, id]);
 };
-//--------GETTING INFO from tables--------------
+//--------GETTING INFO from users--------------
 
 exports.getUserByEmail = function getUserbyEmail(email) {
     return db.query("SELECT * FROM users WHERE email=$1", [email]);
@@ -53,5 +53,40 @@ exports.getUsersInSearch = function getUsersInSearch(val) {
     return db.query(
         `SELECT id, first, last, group_tag, picture FROM users WHERE first ILIKE $1 ORDER by first ASC`,
         [val + "%"]
+    );
+};
+
+//--------------------GETTING INFO from frienships---------------------
+
+exports.getFriendshipStatus = function getFriendshipStatus(
+    sender_id,
+    receiver_id
+) {
+    return db.query(
+        "SELECT * FROM friendships WHERE (sender_id =$1 AND receiver_id=$2) OR (sender_id=$2 AND receiver_id=$1)",
+        [sender_id, receiver_id]
+    );
+};
+
+//-----------------ADDING INFO to friendships-------------------------
+
+exports.addFriendship = function addFriendship(sender_id, receiver_id) {
+    return db.query(
+        "INSERT INTO friendships (sender_id, receiver_id) VALUES ($1, $2) RETURNING accepted",
+        [sender_id, receiver_id]
+    );
+};
+
+exports.deleteFriendship = function deleteFriendship(sender_id, receiver_id) {
+    return db.query(
+        "DELETE FROM friendships WHERE sender_id = $1 AND receiver_id = $2",
+        [sender_id, receiver_id]
+    );
+};
+
+exports.acceptFriendship = function acceptFriendship(sender_id, receiver_id) {
+    return db.query(
+        "UPDATE friendships SET accepted = true WHERE sender_id = $1 AND receiver_id = $2",
+        [sender_id, receiver_id]
     );
 };
