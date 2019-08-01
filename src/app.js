@@ -14,6 +14,7 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             uploaderIsVisible: false,
+            editing: false,
             bio: ""
         };
     } //end of constructor
@@ -102,6 +103,11 @@ export default class App extends React.Component {
                                                 bio={this.state.bio}
                                                 done={bio =>
                                                     this.setState({ bio })
+                                                }
+                                                close={() =>
+                                                    this.setState({
+                                                        editing: false
+                                                    })
                                                 }
                                             />
                                         }

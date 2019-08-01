@@ -23,7 +23,17 @@ export default class Uploader extends React.Component {
     }
     render() {
         return (
-            <div className="outer">
+            <div
+                className="outer"
+                style={{
+                    background: "rgba(0, 0, 0, 0.8)",
+                    zIndex: 100,
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0
+                }}
+            >
                 <div className="inner">
                     <p onClick={() => this.props.close()}>X</p>
                     <h1> Want to change your profile picture?</h1>

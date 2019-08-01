@@ -31,12 +31,17 @@ export default class BioEditor extends React.Component {
             console.log("err in post/bio", err);
         }
     }
+
     render() {
         console.log("this.state", this.state);
         return (
             <div>
                 {this.state.editing && (
                     <div>
+                        <p onClick={() => this.setState({ editing: false })}>
+                            X
+                        </p>
+
                         <h2>
                             Tell us about yourself! What are your current plans
                             related to urban agriculture or gardening? What are
