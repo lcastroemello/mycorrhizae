@@ -8,13 +8,13 @@ import Profile from "./profile";
 import BioEditor from "./bioeditor";
 import Brofile from "./brofile";
 import FindBros from "./findpeople";
+import Friends from "./friends";
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             uploaderIsVisible: false,
-            editing: false,
             bio: ""
         };
     } //end of constructor
@@ -140,6 +140,7 @@ export default class App extends React.Component {
                             )}
                         />
                         <Route path="/users" render={props => <FindBros />} />
+                        <Route path="/friends" render={props => <Friends />} />
                         <Link to="/">home</Link>
                     </div>
                 </div>

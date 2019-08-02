@@ -279,6 +279,18 @@ app.post("/getbutton/accept/:broId", async function(req, res) {
         console.log("err in post accept getbutton", err);
     }
 });
+
+//-----------------------FRIENDS PAGE----------------
+app.get("/friends.json", function(req, res) {
+    try {
+        db.getListOfUsers(req.session.userId).then(list => {
+            console.log("testing list", list);
+            res.json(list);
+        });
+    } catch (err) {
+        console.log("err in get friendsList", err);
+    }
+});
 // -----------------------RENDERING WELCOME (KEEP IT IN THE END)-----------------
 
 app.get("*", function(req, res) {

@@ -1,25 +1,11 @@
 import axios from "axios";
 
-export async function receiveUsers() {
-    const { data } = await axios.get("/users");
+export async function receiveFriends() {
+    console.log("actions");
+    const { data } = await axios.get("/friends.json");
+    console.log("testing data action", data);
     return {
-        type: "RECEIVE_USERS",
-        users: data.users
-    };
-}
-
-export async function makeHot(id) {
-    const { data } = await axios.post("/hot/" + id);
-    return {
-        type: "MAKE_HOT",
-        id
-    };
-}
-
-export async function makeNot(id) {
-    const { data } = await axios.post("/not/" + id);
-    return {
-        type: "MAKE_NOT",
-        id
+        type: "RECEIVE_FRIENDS",
+        users: data.rows
     };
 }

@@ -90,3 +90,12 @@ exports.acceptFriendship = function acceptFriendship(sender_id, receiver_id) {
         [sender_id, receiver_id]
     );
 };
+
+//--------------------GETTING INFO multiple tables--------------------
+
+exports.getListOfUsers = function getListOfUsers(id) {
+    return db.query(
+        "SELECT users.id, first, last, picture, accepted FROM friendships JOIN users ON (accepted = false AND receiver_id =$1 AND sender_id = users.id) OR (accepted = true AND receiver_id = $1 AND sender_id = users.id) OR (accepted = true AND sender_id = $1 AND receiver_id = users.id)",
+        [id]
+    );
+};
