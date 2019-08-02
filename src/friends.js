@@ -42,6 +42,13 @@ export default function Friends() {
                                 >
                                     Add this branch to your tree!
                                 </p>
+                                <p
+                                    onClick={e =>
+                                        dispatch(endFriendship(wannabes.id))
+                                    }
+                                >
+                                    Reject this request
+                                </p>
                             </div>
                         );
                     })}

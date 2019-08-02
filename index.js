@@ -259,8 +259,8 @@ app.post("/getbutton/add/:broId", async function(req, res) {
 app.post("/getbutton/delete/:broId", async function(req, res) {
     try {
         const deleteFriendship = await db.deleteFriendship(
-            req.session.userId,
-            req.params.broId
+            req.params.broId,
+            req.session.userId
         );
         res.json({ success: true });
     } catch (err) {
