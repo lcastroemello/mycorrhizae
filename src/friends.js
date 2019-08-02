@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { receiveFriends } from "./actions";
+import { receiveFriends, acceptRequest, endFriendship } from "./actions";
 
 export default function Friends() {
     const dispatch = useDispatch();
@@ -35,6 +35,13 @@ export default function Friends() {
                                 <h3>
                                     {wannabes.first} {wannabes.last}
                                 </h3>
+                                <p
+                                    onClick={e =>
+                                        dispatch(acceptRequest(wannabes.id))
+                                    }
+                                >
+                                    Add this branch to your tree!
+                                </p>
                             </div>
                         );
                     })}
@@ -49,6 +56,13 @@ export default function Friends() {
                                 <h3>
                                     {friends.first} {friends.last}
                                 </h3>
+                                <p
+                                    onClick={e =>
+                                        dispatch(endFriendship(friends.id))
+                                    }
+                                >
+                                    Prune this branch from your tree
+                                </p>
                             </div>
                         );
                     })}

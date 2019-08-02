@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "./axios";
 
 export async function receiveFriends() {
     console.log("actions");
@@ -7,5 +7,23 @@ export async function receiveFriends() {
     return {
         type: "RECEIVE_FRIENDS",
         users: data.rows
+    };
+}
+
+export async function acceptRequest(id) {
+    const accept = await axios.post("/getbutton/accept/" + id);
+    console.log("accept friend request worked", accept);
+    return {
+        type: "ACCEPT_REQUEST",
+        id
+    };
+}
+
+export async function endFriendship(id) {
+    const deleted = await axios.post("getbutton/delete/" + id);
+    console.log("delete friend request worked", deleted);
+    return {
+        type: "END_FRIENDSHIP",
+        id
     };
 }

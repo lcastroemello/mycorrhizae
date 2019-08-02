@@ -284,7 +284,6 @@ app.post("/getbutton/accept/:broId", async function(req, res) {
 app.get("/friends.json", function(req, res) {
     try {
         db.getListOfUsers(req.session.userId).then(list => {
-            console.log("testing list", list);
             res.json(list);
         });
     } catch (err) {
