@@ -29,20 +29,31 @@ export default class App extends React.Component {
         }
         return (
             <BrowserRouter>
-                <div style={{ background: "#F5FBEF", bottom: 0 }}>
+                <div
+                    style={{
+                        background: "#f5fcef",
+                        bottom: 0,
+                        display: "grid",
+                        gridTemplateRows: "1fr 1fr",
+                        gridTemplateColumns: "1fr"
+                    }}
+                >
                     <div
                         className="header"
                         style={{
+                            gridRow: "1/2",
+                            gridColumn: "1/2",
                             display: "grid",
                             gridTemplateColumns: "1fr 1fr 7rem",
                             borderBottom: "solid #67912D 2px",
-                            padding: "2rem"
+                            padding: "2rem",
+                            zIndex: 1
                         }}
                     >
                         <img
                             style={{
-                                height: 5 + "rem",
-                                width: 5 + "rem",
+                                height: 8 + "rem",
+                                width: 8 + "rem",
                                 placeSelf: "center / start",
                                 gridColumn: 1 / 2
                             }}
@@ -65,6 +76,10 @@ export default class App extends React.Component {
                         </div>
 
                         <ProfilePic
+                            style={{
+                                gridColumn: 3 / 4,
+                                placeSelf: "end"
+                            }}
                             picture={this.state.picture}
                             first={this.state.first}
                             last={this.state.last}
@@ -74,17 +89,32 @@ export default class App extends React.Component {
                         />
                     </div>
                     {this.state.uploaderIsVisible && (
-                        <Uploader
-                            done={picture =>
-                                this.setState({
-                                    picture,
-                                    uploaderIsVisible: false
-                                })
-                            }
-                            close={() =>
-                                this.setState({ uploaderIsVisible: false })
-                            }
-                        />
+                        <div
+                            style={{
+                                gridRow: "1/3",
+                                gridColumn: "1/2",
+                                zIndex: 3
+                            }}
+                        >
+                            <Uploader
+                                profilePic={
+                                    <ProfilePic
+                                        first={this.state.first}
+                                        last={this.state.last}
+                                        picture={this.state.picture}
+                                    />
+                                }
+                                done={picture =>
+                                    this.setState({
+                                        picture,
+                                        uploaderIsVisible: false
+                                    })
+                                }
+                                close={() =>
+                                    this.setState({ uploaderIsVisible: false })
+                                }
+                            />
+                        </div>
                     )}
 
                     <div>
@@ -143,7 +173,9 @@ export default class App extends React.Component {
                         />
                         <Route path="/users" render={props => <FindBros />} />
                         <Route path="/friends" render={props => <Friends />} />
-                        <Link to="/">home</Link>
+                        <Link style={{ height: "1rem" }} to="/">
+                            home
+                        </Link>
                     </div>
                 </div>
             </BrowserRouter>

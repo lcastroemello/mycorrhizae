@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "./axios";
 
+import ProfilePic from "./profilepic";
+
 export default class Uploader extends React.Component {
     constructor(props) {
         super(props);
@@ -26,22 +28,59 @@ export default class Uploader extends React.Component {
             <div
                 className="outer"
                 style={{
-                    background: "rgba(0, 0, 0, 0.8)",
-                    zIndex: 100,
-                    top: 0,
-                    bottom: 0,
-                    left: 0,
-                    right: 0
+                    background: "rgba(0, 0, 0, 0.7)",
+                    height: "100vh",
+                    width: "100vw",
+                    display: "grid"
                 }}
             >
-                <div className="inner">
-                    <p onClick={() => this.props.close()}>X</p>
-                    <h1> Want to change your profile picture?</h1>
+                <div
+                    className="inner"
+                    style={{
+                        display: "grid",
+                        justifySelf: "center",
+                        alignSelf: "center",
+                        background: "#67912d",
+                        height: "50vh",
+                        width: "50vw",
+                        color: "#5C3C02",
+                        alignItems: "start"
+                    }}
+                >
+                    <div
+                        style={{
+                            placeSelf: "center"
+                        }}
+                    >
+                        {this.props.profilePic}
+                    </div>
+                    <p
+                        onClick={() => this.props.close()}
+                        style={{
+                            color: "tomato",
+                            fontSize: "2rem",
+                            justifySelf: "right",
+                            paddingRight: "1rem"
+                        }}
+                    >
+                        X
+                    </p>
+                    <h1
+                        style={{
+                            fontSize: "2rem",
+                            justifySelf: "center"
+                        }}
+                    >
+                        Want to change your profile picture?
+                    </h1>
                     <input
                         className="picUpload"
                         type="file"
                         accept="image/*"
                         onChange={a => this.upload(a)}
+                        style={{
+                            justifySelf: "center"
+                        }}
                     />
                 </div>
             </div>

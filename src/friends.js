@@ -30,7 +30,14 @@ export default function Friends() {
                         return (
                             <div key={wannabes.id}>
                                 <Link to={`/user/${wannabes.id}`}>
-                                    <img src={wannabes.picture} />
+                                    <img
+                                        style={{
+                                            objectFit: "cover",
+                                            height: "8rem",
+                                            width: "8rem"
+                                        }}
+                                        src={wannabes.picture}
+                                    />
                                 </Link>
                                 <h1>
                                     {wannabes.first} {wannabes.last}
@@ -61,7 +68,14 @@ export default function Friends() {
                     friends.map(friends => {
                         return (
                             <div key={friends.id}>
-                                <img src={friends.picture} />
+                                <img
+                                    style={{
+                                        objectFit: "cover",
+                                        height: "8rem",
+                                        width: "8rem"
+                                    }}
+                                    src={friends.picture}
+                                />
                                 <h3>
                                     {friends.first} {friends.last}
                                 </h3>

@@ -12,7 +12,9 @@ export default function Profile(props) {
                 background: "#d8f2c1"
             }}
         >
-            <div style={{ gridColumn: 1 / 2 }}>{props.profilePic}</div>
+            <div style={{ gridColumn: 1 / 2, justifySelf: "center" }}>
+                {props.profilePic}
+            </div>
             <div
                 style={{
                     placeSelf: "center / start",

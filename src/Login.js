@@ -108,7 +108,13 @@ export default class Login extends React.Component {
                     placeholder="password"
                     onChange={e => this.handleChange(e)}
                 />
-                <button onClick={e => this.submit(e)}>Log in</button>
+                <style type="text/css">
+                    .button{`{background: #f5fcef;}`}
+                    .button:hover {`{background: #334431;}`}
+                </style>
+                <button className="button" onClick={e => this.submit(e)}>
+                    Log in
+                </button>
                 <p>
                     Not a branch yet? <Link to="/"> Register! </Link>
                 </p>

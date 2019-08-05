@@ -4,11 +4,10 @@ export default function({ picture, first, last, onClick }) {
     return (
         <img
             style={{
-                gridColumn: 3 / 4,
-                placeSelf: "end",
-                height: 5 + "rem",
-                width: 3.8 + "rem",
-                border: "#67912D" + " solid " + 30 + "pix"
+                objectFit: "cover",
+                alignSelf: "center",
+                height: 8 + "rem",
+                width: 8 + "rem"
             }}
             src={picture}
             alt={`${first} ${last}`}
