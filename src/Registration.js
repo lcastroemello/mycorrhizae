@@ -42,13 +42,16 @@ export default class Registration extends React.Component {
             <div
                 style={{
                     display: "grid",
-                    background: "#67912d",
                     justifyItems: "center"
                 }}
             >
                 {this.state.error && (
                     <div
-                        style={{ color: "red", fontSize: 3 + "rem" }}
+                        style={{
+                            color: "red",
+                            fontSize: 1 + "rem",
+                            background: "#334431"
+                        }}
                         className="error"
                     >
                         Ooops! Something went wrong. Try again 🥀
@@ -56,7 +59,11 @@ export default class Registration extends React.Component {
                 )}
                 {this.state.passerror && (
                     <div
-                        style={{ color: "red", fontSize: 3 + "rem" }}
+                        style={{
+                            color: "red",
+                            fontSize: 1 + "rem",
+                            background: "#334431"
+                        }}
                         className="error"
                     >
                         Your passwords do not match. We know, it is hard with
@@ -65,13 +72,13 @@ export default class Registration extends React.Component {
                 )}
                 <h1
                     style={{
-                        color: "#334431",
+                        color: "#5C3C02",
                         fontFamily: "sans-serif",
                         textAlign: "center",
                         fontSize: "1.5rem"
                     }}
                 >
-                    Plant your profile! Register:
+                    Plant your profile! <br /> Register:
                 </h1>
                 <br />
                 <input
@@ -139,11 +146,13 @@ export default class Registration extends React.Component {
                     <option value="curious">Curious</option>
                 </select>
                 <br />
+                <style type="text/css">
+                    .button{`{background: #f5fcef;}`}
+                    .button:hover {`{background: #334431;}`}
+                </style>
                 <button
-                    style={{
-                        border: "none",
-                        backgroundColor: "#f5fcef"
-                    }}
+                    className="button"
+                    style={{ border: "none" }}
                     onClick={e => this.submit(e)}
                 >
                     Register

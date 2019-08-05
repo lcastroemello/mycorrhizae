@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route } from "react-router-dom";
 
 import Registration from "./registration";
 import Login from "./login";
@@ -14,10 +14,8 @@ export default function Welcome() {
                     gridTemplateColumns: "1fr 1fr",
                     justifySelf: "center",
                     background: "#f5fcef",
-                    margin: 0,
                     height: "100vh",
                     width: "100vw",
-                    boxSizing: "border-box",
                     backgroundImage: 'url("rootsLogo.png")',
                     backgroundSize: "cover"
                 }}
@@ -31,11 +29,12 @@ export default function Welcome() {
                 >
                     <h1
                         style={{
-                            color: "#67912d",
+                            color: "#2b570d",
                             fontFamily: "Lacquer, sans-serif",
                             fontSize: "4rem",
                             display: "grid",
-                            justifyItems: "right"
+                            justifyItems: "right",
+                            filter: "drop-shadow(-20px 20px 30px #f5fcef)"
                         }}
                     >
                         Welcome to <br /> Mycorrhizae!
@@ -56,10 +55,11 @@ export default function Welcome() {
                     style={{
                         gridRow: "2/3",
                         gridColumn: "1/2",
-                        width: "18rem",
+                        width: "20rem",
                         display: "grid",
                         justifySelf: "center",
                         alignSelf: "center",
+                        alignItems: "center",
                         justifyItems: "center",
                         background: "#67912d"
                     }}

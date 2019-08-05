@@ -47,7 +47,11 @@ export default class Login extends React.Component {
             >
                 {this.state.error && (
                     <div
-                        style={{ color: "red", fontSize: 3 + "rem" }}
+                        style={{
+                            color: "red",
+                            fontSize: 1 + "rem",
+                            background: "#334431"
+                        }}
                         className="error"
                     >
                         Ooops! Something went wrong. Are you sure you are
@@ -56,7 +60,11 @@ export default class Login extends React.Component {
                 )}
                 {this.state.noemail && (
                     <div
-                        style={{ color: "red", fontSize: 3 + "rem" }}
+                        style={{
+                            color: "red",
+                            fontSize: 1 + "rem",
+                            background: "#334431"
+                        }}
                         className="error"
                     >
                         Are you sure you are already registered? Did you type
@@ -66,7 +74,11 @@ export default class Login extends React.Component {
                 )}
                 {this.state.wrongpass && (
                     <div
-                        style={{ color: "red", fontSize: 3 + "rem" }}
+                        style={{
+                            color: "red",
+                            fontSize: 1 + "rem",
+                            background: "#334431"
+                        }}
                         className="error"
                     >
                         Are you sure you are already registered? Did you type
@@ -76,7 +88,7 @@ export default class Login extends React.Component {
                 )}
                 <h1
                     style={{
-                        color: "#334431",
+                        color: "#5C3C02",
                         fontFamily: "sans-serif",
                         textAlign: "center",
                         fontSize: "1.5rem"
