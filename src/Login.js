@@ -39,7 +39,12 @@ export default class Login extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div
+                style={{
+                    display: "grid",
+                    justifyItems: "center"
+                }}
+            >
                 {this.state.error && (
                     <div
                         style={{ color: "red", fontSize: 3 + "rem" }}
@@ -69,7 +74,16 @@ export default class Login extends React.Component {
                         try again 🥀
                     </div>
                 )}
-                <h1>Water your branch! Log in:</h1>
+                <h1
+                    style={{
+                        color: "#334431",
+                        fontFamily: "sans-serif",
+                        textAlign: "center",
+                        fontSize: "1.5rem"
+                    }}
+                >
+                    Water your branch! <br /> Log in:
+                </h1>
                 <input
                     name="email"
                     type="email"

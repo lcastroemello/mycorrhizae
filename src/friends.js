@@ -18,8 +18,6 @@ export default function Friends() {
         dispatch(receiveFriends());
     }, []);
 
-    console.log("testing friends", friends);
-    console.log("testing wannabes", wannabes);
     return (
         <div>
             <div
@@ -31,10 +29,13 @@ export default function Friends() {
                     wannabes.map(wannabes => {
                         return (
                             <div key={wannabes.id}>
-                                <img src={wannabes.picture} />
-                                <h3>
+                                <Link to={`/user/${wannabes.id}`}>
+                                    <img src={wannabes.picture} />
+                                </Link>
+                                <h1>
                                     {wannabes.first} {wannabes.last}
-                                </h3>
+                                </h1>
+
                                 <p
                                     onClick={e =>
                                         dispatch(acceptRequest(wannabes.id))
@@ -53,6 +54,7 @@ export default function Friends() {
                         );
                     })}
             </div>
+
             <div className="friends">
                 <h1>Branches in your friend tree!</h1>
                 {friends &&

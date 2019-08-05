@@ -39,7 +39,13 @@ export default class Registration extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div
+                style={{
+                    display: "grid",
+                    background: "#67912d",
+                    justifyItems: "center"
+                }}
+            >
                 {this.state.error && (
                     <div
                         style={{ color: "red", fontSize: 3 + "rem" }}
@@ -57,40 +63,73 @@ export default class Registration extends React.Component {
                         the ***. Try again 🥀
                     </div>
                 )}
-                <h1>Plant your profile! Register:</h1>
+                <h1
+                    style={{
+                        color: "#334431",
+                        fontFamily: "sans-serif",
+                        textAlign: "center",
+                        fontSize: "1.5rem"
+                    }}
+                >
+                    Plant your profile! Register:
+                </h1>
+                <br />
                 <input
                     name="first"
                     placeholder="first name"
                     onChange={e => this.handleChange(e)}
+                    style={{
+                        border: "none"
+                    }}
                 />
+                <br />
                 <input
                     name="last"
                     placeholder="last name"
                     onChange={e => this.handleChange(e)}
+                    style={{
+                        border: "none"
+                    }}
                 />
+                <br />
                 <input
                     name="email"
                     type="email"
                     placeholder="email"
                     onChange={e => this.handleChange(e)}
+                    style={{
+                        border: "none"
+                    }}
                 />
+                <br />
                 <input
                     name="pass"
                     type="password"
                     placeholder="password"
                     onChange={e => this.handleChange(e)}
+                    style={{
+                        border: "none"
+                    }}
                 />
+                <br />
                 <input
                     name="confpass"
                     type="password"
                     placeholder="confirm password"
                     onChange={e => this.handleChange(e)}
+                    style={{
+                        border: "none"
+                    }}
                 />
-                <label> I am a/an: </label>
+                <br />
+                <label style={{ color: "#f5fcef" }}> I am a/an: </label>
                 <select
                     id="group_classes"
                     name="group_classes"
                     onChange={e => this.handleChange(e)}
+                    style={{
+                        border: "none"
+                    }}
                 >
                     <option value="null" />
                     <option value="amateur">Amateur gardner</option>
@@ -99,8 +138,17 @@ export default class Registration extends React.Component {
                     </option>
                     <option value="curious">Curious</option>
                 </select>
-                <button onClick={e => this.submit(e)}>Register</button>
-                <p>
+                <br />
+                <button
+                    style={{
+                        border: "none",
+                        backgroundColor: "#f5fcef"
+                    }}
+                    onClick={e => this.submit(e)}
+                >
+                    Register
+                </button>
+                <p style={{ color: "#f5fcef" }}>
                     Already a branch? <Link to="/Login"> Log in! </Link>
                 </p>
             </div>

@@ -9,23 +9,64 @@ export default function Welcome() {
         <HashRouter>
             <div
                 style={{
-                    display: "static",
+                    display: "grid",
+                    gridTemplateRows: "1fr 1fr",
+                    gridTemplateColumns: "1fr 1fr",
                     justifySelf: "center",
-                    background: "#F5FBEF"
+                    background: "#f5fcef",
+                    margin: 0,
+                    height: "100vh",
+                    width: "100vw",
+                    boxSizing: "border-box",
+                    backgroundImage: 'url("rootsLogo.png")',
+                    backgroundSize: "cover"
                 }}
             >
-                <img
-                    style={{ height: 20 + "rem", width: 20 + "rem" }}
-                    src="rootsLogo.png"
-                />
-                <h1 style={{ color: "#67912D" }}>Welcome to Mycorrhizae!</h1>
-                <h2>Be a root of change! Learn, plant, eat, enjoy!</h2>
-                <p>
-                    Become a part of the fastest growing online community in
-                    urban agriculture and gardening
-                </p>
-                <Route exact path="/" component={Registration} />
-                <Route path="/login" component={Login} />
+                <div
+                    style={{
+                        gridRow: "1/2",
+                        gridColumn: "2/3",
+                        paddingRight: "3rem"
+                    }}
+                >
+                    <h1
+                        style={{
+                            color: "#67912d",
+                            fontFamily: "Lacquer, sans-serif",
+                            fontSize: "4rem",
+                            display: "grid",
+                            justifyItems: "right"
+                        }}
+                    >
+                        Welcome to <br /> Mycorrhizae!
+                    </h1>
+                    <h2
+                        style={{
+                            color: "#334431",
+                            fontFamily: "Lacquer, sans-serif",
+                            fontSize: "1.3rem",
+                            display: "grid",
+                            justifyItems: "right"
+                        }}
+                    >
+                        Be a root of change! <br /> Learn, plant, eat, enjoy!
+                    </h2>
+                </div>
+                <div
+                    style={{
+                        gridRow: "2/3",
+                        gridColumn: "1/2",
+                        width: "18rem",
+                        display: "grid",
+                        justifySelf: "center",
+                        alignSelf: "center",
+                        justifyItems: "center",
+                        background: "#67912d"
+                    }}
+                >
+                    <Route exact path="/" component={Registration} />
+                    <Route path="/login" component={Login} />
+                </div>
             </div>
         </HashRouter>
     );

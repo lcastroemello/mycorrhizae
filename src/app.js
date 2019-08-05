@@ -60,6 +60,8 @@ export default class App extends React.Component {
                             <Link to="/users">Find buddy branches!</Link>
                             <br />
                             <Link to="/">My profile</Link>
+                            <br />
+                            <Link to="/friends">My buddy branches</Link>
                         </div>
 
                         <ProfilePic
