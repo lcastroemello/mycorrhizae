@@ -42,7 +42,7 @@ export default class BioEditor extends React.Component {
                             X
                         </p>
 
-                        <h2>
+                        <h2 style={{ color: "#334431" }}>
                             Tell us about yourself! What are your current plans
                             related to urban agriculture or gardening? What are
                             you expecting from our community? Plant your seeds
@@ -60,8 +60,18 @@ export default class BioEditor extends React.Component {
                 {!this.state.editing && (
                     <div>
                         <div>
-                            {this.props.bio && <p>{this.props.bio}</p>}
+                            {this.props.bio && (
+                                <p style={{ color: "#334431" }}>
+                                    {this.props.bio}
+                                </p>
+                            )}
+                            <style type="text/css">
+                                .button{`{background: #f5fcef;}`}
+                                .button:hover {`{background: #67912d;}`}
+                            </style>
                             <button
+                                className="button"
+                                style={{ border: "none", color: "#334431" }}
                                 onClick={() => this.setState({ editing: true })}
                             >
                                 {this.props.bio ? "Edit bio" : "Add bio"}

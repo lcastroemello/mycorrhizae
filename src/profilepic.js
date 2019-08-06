@@ -6,9 +6,11 @@ export default function({ picture, first, last, onClick }) {
             style={{
                 objectFit: "cover",
                 alignSelf: "center",
-                height: 8 + "rem",
-                width: 8 + "rem"
+                justifySelf: "right",
+                width: "5rem",
+                height: "5rem"
             }}
+            id="images"
             src={picture}
             alt={`${first} ${last}`}
             onClick={onClick}

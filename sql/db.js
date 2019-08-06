@@ -91,11 +91,26 @@ exports.acceptFriendship = function acceptFriendship(sender_id, receiver_id) {
     );
 };
 
+//-----------------ADDING INFO chats-----------------------------
+
+exports.addChatMessage = function addChatMessage(userId, msg) {
+    return db.query(
+        "INSERT INTO chats (sender_id, message) VALUES ($1, $2) RETURNING id, message, created_at",
+        [userId, msg]
+    );
+};
+
 //--------------------GETTING INFO multiple tables--------------------
 
 exports.getListOfUsers = function getListOfUsers(id) {
     return db.query(
         "SELECT users.id, first, last, picture, accepted FROM friendships JOIN users ON (accepted = false AND receiver_id =$1 AND sender_id = users.id) OR (accepted = true AND receiver_id = $1 AND sender_id = users.id) OR (accepted = true AND sender_id = $1 AND receiver_id = users.id)",
         [id]
+    );
+};
+
+exports.getLast10Messages = function getLast10Messages() {
+    return db.query(
+        "SELECT chats.id, sender_id, message, chats.created_at, first, last, picture FROM chats  JOIN users ON users.id = sender_id ORDER BY chats.id DESC LIMIT 10"
     );
 };

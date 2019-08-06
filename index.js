@@ -8,15 +8,20 @@ const cookieSession = require("cookie-session");
 const csurf = require("csurf");
 const s3 = require("./s3");
 const config = require("./config");
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
+const cookieSessionMiddleware = cookieSession({
+    secret: "its gonna be ok",
+    maxAge: 1000 * 60 * 60 * 24 * 14
+});
 
 app.use(express.static("./static"));
 
-app.use(
-    cookieSession({
-        secret: "its gonna be ok",
-        maxAge: 1000 * 60 * 60 * 24 * 14
-    })
-);
+app.use(cookieSessionMiddleware);
+
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(csurf());
 
@@ -302,8 +307,50 @@ app.get("*", function(req, res) {
     }
 });
 
-// ------------------STARTING OUR SERVER---------------------
+// ------------------STARTING OUR SERVER ---------------------
 
-app.listen(8080, function() {
+server.listen(8080, function() {
     ca.neon("Reacting to your wishes hon");
+});
+
+//-------------------SOCKET.IO--------------------------------
+io.on("connection", socket => {
+    console.log(`socket with id ${socket.id} is now connected`);
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+        console.log("socket disconnecting");
+    }
+    const userId = socket.request.session.userId;
+
+    // CHAT - getting the last 10 chatMessages
+
+    (async () => {
+        try {
+            let messages = await db.getLast10Messages();
+            io.emit("chatMessages", messages.rows);
+        } catch (err) {
+            console.log("err in get last chat messages", err);
+        }
+    })();
+
+    socket.on("newChatMessage", async msg => {
+        try {
+            let msgInfo = await db.addChatMessage(userId, msg);
+            let userInfo = await db.getUserById(userId);
+            console.log("userinfo", userInfo);
+            console.log("msgInfo", msgInfo);
+            let fullInfo = {
+                id: msgInfo.rows[0].id,
+                sender_id: userInfo.rows[0].id,
+                created_at: msgInfo.rows[0].created_at,
+                first: userInfo.rows[0].first,
+                last: userInfo.rows[0].last,
+                picture: userInfo.rows[0].picture
+            };
+            console.log("this is fullInfo", fullInfo);
+            io.emit("newChatMessage", fullInfo);
+        } catch (err) {
+            console.log("err in add chat messages", err);
+        }
+    });
 });

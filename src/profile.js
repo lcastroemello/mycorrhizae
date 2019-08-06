@@ -21,7 +21,13 @@ export default function Profile(props) {
                     gridColumn: 2 / 3
                 }}
             >
-                <h2 style={{ padding: 0 }}>
+                <h2
+                    style={{
+                        padding: 0,
+                        color: "#334431",
+                        fontFamily: "Lacquer, sans-serif"
+                    }}
+                >
                     {props.first} {props.last}
                 </h2>
                 {props.bioEditor}

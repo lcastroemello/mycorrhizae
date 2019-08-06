@@ -27,3 +27,18 @@ export async function endFriendship(id) {
         id
     };
 }
+
+export function chatMessages(msgs) {
+    return {
+        type: "GET_CHAT_MESSAGES",
+        msgs: msgs
+    };
+}
+
+export function newChatMessage(msg) {
+    console.log("testing msg in actions", msg);
+    return {
+        type: "POST_NEW_CHAT_MESSAGE",
+        msg
+    };
+}

@@ -148,7 +148,7 @@ export default class Registration extends React.Component {
                 <br />
                 <style type="text/css">
                     .button{`{background: #f5fcef;}`}
-                    .button:hover {`{background: #334431;}`}
+                    .button:hover {`{background: #67912d;}`}
                 </style>
                 <button
                     className="button"

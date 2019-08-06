@@ -38,10 +38,12 @@ export default class Uploader extends React.Component {
                     className="inner"
                     style={{
                         display: "grid",
+                        gridTemplateRows: "1rem 1fr 1fr",
+                        gridTemplateColumns: "1fr 1fr",
                         justifySelf: "center",
                         alignSelf: "center",
                         background: "#67912d",
-                        height: "50vh",
+                        height: "40vh",
                         width: "50vw",
                         color: "#5C3C02",
                         alignItems: "start"
@@ -49,18 +51,23 @@ export default class Uploader extends React.Component {
                 >
                     <div
                         style={{
-                            placeSelf: "center"
+                            placeSelf: "center",
+                            paddingTop: "1rem",
+                            gridRow: "1/4",
+                            gridColumn: "1/2"
                         }}
+                        size="jumbo"
                     >
                         {this.props.profilePic}
                     </div>
                     <p
                         onClick={() => this.props.close()}
                         style={{
-                            color: "tomato",
+                            color: "#5C3C02",
                             fontSize: "2rem",
                             justifySelf: "right",
-                            paddingRight: "1rem"
+                            paddingRight: "1rem",
+                            gridRow: "1/2"
                         }}
                     >
                         X
@@ -68,7 +75,9 @@ export default class Uploader extends React.Component {
                     <h1
                         style={{
                             fontSize: "2rem",
-                            justifySelf: "center"
+                            justifySelf: "center",
+                            paddingTop: 0,
+                            gridRow: "2/3"
                         }}
                     >
                         Want to change your profile picture?
@@ -79,7 +88,8 @@ export default class Uploader extends React.Component {
                         accept="image/*"
                         onChange={a => this.upload(a)}
                         style={{
-                            justifySelf: "center"
+                            justifySelf: "center",
+                            gridRow: "3/4"
                         }}
                     />
                 </div>

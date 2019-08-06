@@ -9,6 +9,7 @@ import BioEditor from "./bioeditor";
 import Brofile from "./brofile";
 import FindBros from "./findpeople";
 import Friends from "./friends";
+import Chat from "./chat";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -51,11 +52,12 @@ export default class App extends React.Component {
                         }}
                     >
                         <img
+                            className="images"
                             style={{
-                                height: 8 + "rem",
-                                width: 8 + "rem",
                                 placeSelf: "center / start",
-                                gridColumn: 1 / 2
+                                gridColumn: 1 / 2,
+                                height: "4rem",
+                                width: "4rem"
                             }}
                             src="/rootsLogo.png"
                             alt="roots logo"
@@ -64,22 +66,50 @@ export default class App extends React.Component {
                         <div
                             className="links"
                             style={{
-                                gridColumn: 2 / 3,
-                                placeSelf: "end"
+                                gridColumn: "2 / 3",
+                                display: "flex",
+                                justifyContent: "space-around",
+                                alignSelf: "center",
+                                fontFamily: "Lacquer, sans-serif",
+                                fontSize: "1.3rem"
                             }}
                         >
-                            <Link to="/users">Find buddy branches!</Link>
-                            <br />
-                            <Link to="/">My profile</Link>
-                            <br />
-                            <Link to="/friends">My buddy branches</Link>
-                        </div>
+                            <style type="text/css">
+                                .link{`{color:#67912d; textDecoration:none;}`}
+                                .link:hover {`{color:#334431;}`}
+                            </style>
+                            <Link
+                                className="link"
+                                style={{
+                                    textDecoration: "none"
+                                }}
+                                to="/users"
+                            >
+                                Find buddy branches!
+                            </Link>
 
+                            <Link
+                                className="link"
+                                style={{
+                                    textDecoration: "none"
+                                }}
+                                to="/"
+                            >
+                                My profile
+                            </Link>
+
+                            <Link
+                                className="link"
+                                style={{
+                                    textDecoration: "none"
+                                }}
+                                to="/friends"
+                            >
+                                My buddy branches
+                            </Link>
+                        </div>
                         <ProfilePic
-                            style={{
-                                gridColumn: 3 / 4,
-                                placeSelf: "end"
-                            }}
+                            id="images"
                             picture={this.state.picture}
                             first={this.state.first}
                             last={this.state.last}
@@ -173,7 +203,17 @@ export default class App extends React.Component {
                         />
                         <Route path="/users" render={props => <FindBros />} />
                         <Route path="/friends" render={props => <Friends />} />
-                        <Link style={{ height: "1rem" }} to="/">
+                        <Route path="/chat" render={props => <Chat />} />
+                        <Link
+                            className="link"
+                            style={{
+                                height: "1rem",
+                                fontFamily: "Lacquer, sans-serif",
+                                fontSize: "1.3rem",
+                                textDecoration: "none"
+                            }}
+                            to="/"
+                        >
                             home
                         </Link>
                     </div>

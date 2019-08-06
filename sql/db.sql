@@ -16,13 +16,26 @@
 
 -------------------FRIENDSHIP BUTTON ------------------------------
 
-DROP TABLE IF EXISTS friendships;
+-- DROP TABLE IF EXISTS friendships;
+--
+-- CREATE TABLE friendships (
+--     id SERIAL PRIMARY KEY,
+--     sender_id INT REFERENCES users(id),
+--     receiver_id INT REFERENCES users(id),
+--     accepted BOOLEAN DEFAULT false
+-- );
+--
+-- SELECT * FROM friendships;
 
-CREATE TABLE friendships (
+---------------CHAT----------------------------------
+
+DROP TABLE IF EXISTS chats;
+
+CREATE TABLE chats (
     id SERIAL PRIMARY KEY,
-    sender_id INT REFERENCES users(id),
-    receiver_id INT REFERENCES users(id),
-    accepted BOOLEAN DEFAULT false
+    sender_id INT NOT NULL REFERENCES users(id),
+    message VARCHAR(1000),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-SELECT * FROM friendships;
+SELECT * FROM chats;

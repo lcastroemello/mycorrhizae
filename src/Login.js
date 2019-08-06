@@ -20,7 +20,7 @@ export default class Login extends React.Component {
             })
             .then(({ data }) => {
                 if (data.success) {
-                    location.replace("./app");
+                    location.replace("./");
                 } else if (data.usernoexist) {
                     this.setState({
                         noemail: true
