@@ -42,3 +42,18 @@ export function newChatMessage(msg) {
         msg
     };
 }
+
+export function groupMessages(msgs) {
+    return {
+        type: "GET_GROUP_MESSAGES",
+        groupmsgs: msgs
+    };
+}
+
+export function newGroupMessage(msg) {
+    console.log("testing group message in actions", msg);
+    return {
+        type: "POST_NEW_GROUP_MESSAGE",
+        msg
+    };
+}

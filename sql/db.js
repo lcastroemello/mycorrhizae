@@ -100,6 +100,19 @@ exports.addChatMessage = function addChatMessage(userId, msg) {
     );
 };
 
+//--------------------ADDING INFO into groupchat----------------
+
+exports.addGroupChatMessage = function addGroupChatMessage(
+    userId,
+    sender_group,
+    msg
+) {
+    return db.query(
+        "INSERT INTO groupchat (sender_id, sender_group, message) VALUES ($1, $2, $3) RETURNING id, message, created_at",
+        [userId, sender_group, msg]
+    );
+};
+
 //--------------------GETTING INFO multiple tables--------------------
 
 exports.getListOfUsers = function getListOfUsers(id) {
@@ -112,6 +125,12 @@ exports.getListOfUsers = function getListOfUsers(id) {
 exports.getLast10Messages = function getLast10Messages() {
     return db.query(
         "SELECT chats.id, group_tag, sender_id, message, chats.created_at, first, last, picture FROM chats  JOIN users ON users.id = sender_id ORDER BY chats.id DESC LIMIT 10"
+    );
+};
+
+exports.getLast10GroupMessages = function getLast10GroupMessages() {
+    return db.query(
+        "SELECT groupchat.id, sender_group, sender_id, message, groupchat.created_at, first, last, picture FROM groupchat  JOIN users ON users.id = sender_id ORDER BY groupchat.id DESC LIMIT 10"
     );
 };
 

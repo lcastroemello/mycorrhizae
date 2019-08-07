@@ -28,23 +28,23 @@
 -- SELECT * FROM friendships;
 
 ---------------CHAT----------------------------------
-
-DROP TABLE IF EXISTS chats;
-
-CREATE TABLE chats (
-    id SERIAL PRIMARY KEY,
-    sender_id INT NOT NULL REFERENCES users(id),
-    message VARCHAR(100000),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-SELECT * FROM chats;
+--
+-- DROP TABLE IF EXISTS chats;
+--
+-- CREATE TABLE chats (
+--     id SERIAL PRIMARY KEY,
+--     sender_id INT NOT NULL REFERENCES users(id),
+--     message VARCHAR(100000),
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+--
+-- SELECT * FROM chats;
 
 -------------------------PRIVATE CHAT-------------------------------------
 
-DROP TABLE IF EXISTS privateChat;
+DROP TABLE IF EXISTS groupChat;
 
-CREATE TABLE privateChat (
+CREATE TABLE groupChat (
     id SERIAL PRIMARY KEY,
     sender_id INT NOT NULL REFERENCES users(id),
     sender_group VARCHAR(255) NOT NULL,
@@ -53,4 +53,4 @@ CREATE TABLE privateChat (
 
 );
 
-SELECT * FROM privateChat;
+SELECT * FROM groupChat;

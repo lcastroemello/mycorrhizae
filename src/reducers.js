@@ -48,5 +48,21 @@ export default function(state = {}, action) {
         };
     }
 
+    if (action.type == "GET_GROUP_MESSAGES") {
+        console.log("inside action get group messages");
+        state = {
+            ...state,
+            groupMessages: action.groupmsgs
+        };
+    }
+
+    if (action.type == "POST_NEW_GROUP_MESSAGE") {
+        console.log("inside action group message");
+        state = {
+            ...state,
+            groupMessages: [...state.groupMessages, action.msg]
+        };
+    }
+
     return state;
 }

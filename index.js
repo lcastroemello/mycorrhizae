@@ -331,7 +331,6 @@ io.on("connection", socket => {
             messages.rows.forEach(i => {
                 i.created_at = moment(i.created_at, moment.ISO_8601).fromNow();
             });
-            console.log("testing messages after moment", messages.rows);
             io.emit("chatMessages", messages.rows);
         } catch (err) {
             console.log("err in get last chat messages", err);
@@ -358,9 +357,46 @@ io.on("connection", socket => {
     });
 });
 
-const groupChat = io.of("/groupChat");
+var groupchat = io.of("/groupchat");
 
-groupChat.on("connection", function(socket) {
-    console.log("someone connected");
-    groupChat.emit("hi", "everyone!");
+groupchat.on("connection", function(socket) {
+    console.log(`socket 2 with id ${socket.id} is now connected`);
+    const userId = socket.request.session.userId;
+
+    (async () => {
+        groupchat.emit("hi", "everyone");
+        try {
+            let messages = await db.getLast10GroupMessages();
+            messages.rows.forEach(i => {
+                i.created_at = moment(i.created_at, moment.ISO_8601).fromNow();
+            });
+            // console.log("testing get group msg", messages.rows);
+            groupchat.emit("groupMessages", messages.rows);
+        } catch (err) {
+            console.log("err in get last group messages", err);
+        }
+    })();
+
+    socket.on("newGroupMessage", async msg => {
+        try {
+            let userInfo = await db.getUserById(userId);
+            let msgInfo = await db.addGroupChatMessage(
+                userId,
+                userInfo.rows[0].group_tag,
+                msg
+            );
+            let timetag = moment(
+                msgInfo.rows[0].created_at,
+                moment.ISO_8601
+            ).fromNow();
+            msgInfo.rows[0] = {
+                ...msgInfo.rows[0],
+                created_at: timetag
+            };
+            const fullInfo = { ...msgInfo.rows[0], ...userInfo.rows[0] };
+            groupchat.emit("newGroupMessage", fullInfo);
+        } catch (err) {
+            console.log("err in add group message", err);
+        }
+    });
 });

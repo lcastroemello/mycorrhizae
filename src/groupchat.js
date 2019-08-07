@@ -3,12 +3,13 @@ import { socket } from "./groupsocket";
 import { useSelector } from "react-redux";
 
 export default function GroupChat() {
-    const chatMessages = useSelector(state => state && state.chatMessages);
-    console.log(chatMessages);
+    const groupMessages = useSelector(state => state && state.groupMessages);
+    console.log("this is group messages", groupMessages);
     const keyCheck = e => {
         if (e.key === "Enter") {
             e.preventDefault();
             console.log("enter was pressed", e.target.value);
+            console.log("this is socket", socket);
             socket.emit("newGroupMessage", e.target.value);
             e.target.value = "";
         }
@@ -42,11 +43,11 @@ export default function GroupChat() {
                     padding: "1rem"
                 }}
             >
-                {chatMessages &&
-                    chatMessages.map(chatMessages => {
+                {groupMessages &&
+                    groupMessages.map(groupMessages => {
                         return (
                             <div
-                                key={chatMessages.id}
+                                key={groupMessages.id}
                                 style={{
                                     display: "grid",
                                     gridTemplateColumns: "5rem 1fr",
@@ -63,7 +64,7 @@ export default function GroupChat() {
                                         alignSelf: "center",
                                         objectFit: "cover"
                                     }}
-                                    src={chatMessages.picture}
+                                    src={groupMessages.picture}
                                 />
                                 <p
                                     style={{
@@ -73,7 +74,7 @@ export default function GroupChat() {
                                         fontSize: "1.1rem"
                                     }}
                                 >
-                                    {chatMessages.first} {chatMessages.last}
+                                    {groupMessages.first} {groupMessages.last}
                                 </p>
                                 <p
                                     style={{
@@ -82,7 +83,7 @@ export default function GroupChat() {
                                         fontSize: "1rem"
                                     }}
                                 >
-                                    {chatMessages.message}
+                                    {groupMessages.message}
                                 </p>
                                 <p
                                     style={{
@@ -91,7 +92,7 @@ export default function GroupChat() {
                                         fontSize: "0.8rem"
                                     }}
                                 >
-                                    {chatMessages.created_at}
+                                    {groupMessages.created_at}
                                 </p>
                             </div>
                         );
