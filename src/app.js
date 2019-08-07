@@ -10,6 +10,7 @@ import Brofile from "./brofile";
 import FindBros from "./findpeople";
 import Friends from "./friends";
 import Chat from "./chat";
+import GroupChat from "./groupChat";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -268,6 +269,21 @@ export default class App extends React.Component {
                                     }}
                                 >
                                     <Chat />
+                                </div>
+                            )}
+                        />
+
+                        <Route
+                            path="/groupchat"
+                            render={props => (
+                                <div
+                                    style={{
+                                        background: "#d8f2c1",
+                                        height: "100%",
+                                        width: "100%"
+                                    }}
+                                >
+                                    <GroupChat />
                                 </div>
                             )}
                         />

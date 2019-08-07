@@ -357,3 +357,10 @@ io.on("connection", socket => {
         }
     });
 });
+
+const groupChat = io.of("/groupChat");
+
+groupChat.on("connection", function(socket) {
+    console.log("someone connected");
+    groupChat.emit("hi", "everyone!");
+});

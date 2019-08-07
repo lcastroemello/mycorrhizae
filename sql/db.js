@@ -111,6 +111,9 @@ exports.getListOfUsers = function getListOfUsers(id) {
 
 exports.getLast10Messages = function getLast10Messages() {
     return db.query(
-        "SELECT chats.id, sender_id, message, chats.created_at, first, last, picture FROM chats  JOIN users ON users.id = sender_id ORDER BY chats.id DESC LIMIT 10"
+        "SELECT chats.id, group_tag, sender_id, message, chats.created_at, first, last, picture FROM chats  JOIN users ON users.id = sender_id ORDER BY chats.id DESC LIMIT 10"
     );
 };
+
+// updating with conditionals (info for the future)
+// UPDATE users SET group_tag='pro' WHERE id % 3 = 0

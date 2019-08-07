@@ -1,16 +1,15 @@
 import React, { useEffect, useRef } from "react";
-import { socket } from "./socket";
+import { socket } from "./groupsocket";
 import { useSelector } from "react-redux";
-import { Route, BrowserRouter, Link } from "react-router-dom";
 
-export default function Chat() {
+export default function GroupChat() {
     const chatMessages = useSelector(state => state && state.chatMessages);
-    console.log("testing chatmessages", chatMessages);
+    console.log(chatMessages);
     const keyCheck = e => {
         if (e.key === "Enter") {
             e.preventDefault();
             console.log("enter was pressed", e.target.value);
-            socket.emit("newChatMessage", e.target.value);
+            socket.emit("newGroupMessage", e.target.value);
             e.target.value = "";
         }
     };
@@ -85,55 +84,15 @@ export default function Chat() {
                                 >
                                     {chatMessages.message}
                                 </p>
-
-                                {chatMessages.group_tag == "amateur" && (
-                                    <p
-                                        style={{
-                                            gridRow: "3/4",
-                                            gridColumn: "2/3",
-                                            fontSize: "0.8rem"
-                                        }}
-                                    >
-                                        Amateur gardner 🌱
-                                        {chatMessages.created_at}
-                                    </p>
-                                )}
-
-                                {chatMessages.group_tag == "pro" && (
-                                    <p
-                                        style={{
-                                            gridRow: "3/4",
-                                            gridColumn: "2/3",
-                                            fontSize: "0.8rem"
-                                        }}
-                                    >
-                                        Professional (gardner/farmer/agronomist)
-                                        🌱{chatMessages.created_at}
-                                    </p>
-                                )}
-
-                                {chatMessages.group_tag == "curious" && (
-                                    <p
-                                        style={{
-                                            gridRow: "3/4",
-                                            gridColumn: "2/3",
-                                            fontSize: "0.8rem"
-                                        }}
-                                    >
-                                        Curious 🌱{chatMessages.created_at}
-                                    </p>
-                                )}
-                                {!chatMessages.group_tag && (
-                                    <p
-                                        style={{
-                                            gridRow: "3/4",
-                                            gridColumn: "2/3",
-                                            fontSize: "0.8rem"
-                                        }}
-                                    >
-                                        {chatMessages.created_at} 🌱
-                                    </p>
-                                )}
+                                <p
+                                    style={{
+                                        gridRow: "3/4",
+                                        gridColumn: "2/3",
+                                        fontSize: "0.8rem"
+                                    }}
+                                >
+                                    {chatMessages.created_at}
+                                </p>
                             </div>
                         );
                     })}
@@ -150,24 +109,6 @@ export default function Chat() {
                 onKeyDown={keyCheck}
                 placeholder="Add your message here"
             />
-            <style type="text/css">
-                .link{`{color:#67912d;}`}
-                .link:hover {`{color:#334431;}`}
-            </style>
-            <BrowserRouter>
-                <Link
-                    className="link"
-                    style={{
-                        textDecoration: "none",
-                        fontFamily: "Lacquer, sans-serif",
-                        fontSize: "1rem"
-                    }}
-                    to="/groupchat"
-                >
-                    Feel like talking with your peers? Try our group chats for
-                    amateur gardners, professionals or curious!
-                </Link>
-            </BrowserRouter>
         </div>
     );
 }
