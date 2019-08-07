@@ -10,6 +10,7 @@ export default function Chat() {
             e.preventDefault();
             console.log("enter was pressed", e.target.value);
             socket.emit("newChatMessage", e.target.value);
+            e.target.value = "";
         }
     };
 

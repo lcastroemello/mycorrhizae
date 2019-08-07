@@ -7,6 +7,7 @@ const db = require("./sql/db");
 const cookieSession = require("cookie-session");
 const csurf = require("csurf");
 const s3 = require("./s3");
+var moment = require("moment");
 const config = require("./config");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { origins: "localhost:8080" });
@@ -327,6 +328,14 @@ io.on("connection", socket => {
     (async () => {
         try {
             let messages = await db.getLast10Messages();
+
+            for (var i = 0; i < messages.rows.length; i++) {
+                messages.rows[i].created_at = moment(
+                    messages.rows[i].created_at,
+                    moment.ISO_8601
+                ).fromNow();
+            }
+            console.log("testing messages after moment", messages.rows);
             io.emit("chatMessages", messages.rows);
         } catch (err) {
             console.log("err in get last chat messages", err);
@@ -337,17 +346,15 @@ io.on("connection", socket => {
         try {
             let msgInfo = await db.addChatMessage(userId, msg);
             let userInfo = await db.getUserById(userId);
-            console.log("userinfo", userInfo);
-            console.log("msgInfo", msgInfo);
-            let fullInfo = {
-                id: msgInfo.rows[0].id,
-                sender_id: userInfo.rows[0].id,
-                created_at: msgInfo.rows[0].created_at,
-                first: userInfo.rows[0].first,
-                last: userInfo.rows[0].last,
-                picture: userInfo.rows[0].picture
+            let timetag = moment(
+                msgInfo.rows[0].created_at,
+                moment.ISO_8601
+            ).fromNow();
+            msgInfo.rows[0] = {
+                ...msgInfo.rows[0],
+                created_at: timetag
             };
-            console.log("this is fullInfo", fullInfo);
+            const fullInfo = { ...msgInfo.rows[0], ...userInfo.rows[0] };
             io.emit("newChatMessage", fullInfo);
         } catch (err) {
             console.log("err in add chat messages", err);

@@ -87,17 +87,6 @@ export default class App extends React.Component {
                             >
                                 Find buddy branches!
                             </Link>
-
-                            <Link
-                                className="link"
-                                style={{
-                                    textDecoration: "none"
-                                }}
-                                to="/"
-                            >
-                                My profile
-                            </Link>
-
                             <Link
                                 className="link"
                                 style={{
@@ -106,6 +95,24 @@ export default class App extends React.Component {
                                 to="/friends"
                             >
                                 My buddy branches
+                            </Link>
+                            <Link
+                                className="link"
+                                style={{
+                                    textDecoration: "none"
+                                }}
+                                to="/chat"
+                            >
+                                Chat
+                            </Link>
+                            <Link
+                                className="link"
+                                style={{
+                                    textDecoration: "none"
+                                }}
+                                to="/"
+                            >
+                                My profile
                             </Link>
                         </div>
                         <ProfilePic
