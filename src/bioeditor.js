@@ -49,11 +49,13 @@ export default class BioEditor extends React.Component {
                             here!
                         </h2>
                         <textarea
+                            style={{ height: "30rem", width: "30rem" }}
                             onChange={({ target }) => {
                                 this.setState({ draft: target.value });
                             }}
                             name="draftBio"
                         />
+                        <br />
                         <button onClick={e => this.submit(e)}>Save</button>
                     </div>
                 )}

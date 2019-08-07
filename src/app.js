@@ -35,8 +35,10 @@ export default class App extends React.Component {
                         background: "#f5fcef",
                         bottom: 0,
                         display: "grid",
-                        gridTemplateRows: "1fr 1fr",
-                        gridTemplateColumns: "1fr"
+                        gridTemplateRows: "8rem 1fr",
+                        gridTemplateColumns: "1fr",
+                        height: "100vh",
+                        width: "100vw"
                     }}
                 >
                     <div
@@ -120,6 +122,7 @@ export default class App extends React.Component {
                             picture={this.state.picture}
                             first={this.state.first}
                             last={this.state.last}
+                            size={"normal"}
                             onClick={() =>
                                 this.setState({ uploaderIsVisible: true })
                             }
@@ -139,6 +142,7 @@ export default class App extends React.Component {
                                         first={this.state.first}
                                         last={this.state.last}
                                         picture={this.state.picture}
+                                        size={"jumbo"}
                                     />
                                 }
                                 done={picture =>
@@ -160,8 +164,13 @@ export default class App extends React.Component {
                             path="/"
                             render={() => (
                                 <div
-                                    className="body"
-                                    style={{ background: "#d8f2c1" }}
+                                    style={{
+                                        background: "#d8f2c1",
+                                        height: "100%",
+                                        width: "100%",
+                                        paddingLeft: "2rem",
+                                        paddingTop: "2rem"
+                                    }}
                                 >
                                     <Profile
                                         picture={this.state.picture}
@@ -185,6 +194,7 @@ export default class App extends React.Component {
                                                 first={this.state.first}
                                                 last={this.state.last}
                                                 picture={this.state.picture}
+                                                size={"jumbo"}
                                                 onClick={() => {
                                                     this.setState({
                                                         uploaderIsVisible: true
@@ -200,29 +210,67 @@ export default class App extends React.Component {
                         <Route
                             path="/user/:id"
                             render={props => (
-                                <Brofile
-                                    key={props.match.url}
-                                    match={props.match}
-                                    history={props.history}
-                                    userId={this.state.id}
-                                />
+                                <div
+                                    style={{
+                                        background: "#d8f2c1",
+                                        height: "100%",
+                                        width: "100%"
+                                    }}
+                                >
+                                    <Brofile
+                                        key={props.match.url}
+                                        match={props.match}
+                                        history={props.history}
+                                        userId={this.state.id}
+                                    />
+                                </div>
                             )}
                         />
-                        <Route path="/users" render={props => <FindBros />} />
-                        <Route path="/friends" render={props => <Friends />} />
-                        <Route path="/chat" render={props => <Chat />} />
-                        <Link
-                            className="link"
-                            style={{
-                                height: "1rem",
-                                fontFamily: "Lacquer, sans-serif",
-                                fontSize: "1.3rem",
-                                textDecoration: "none"
-                            }}
-                            to="/"
-                        >
-                            home
-                        </Link>
+
+                        <Route
+                            path="/users"
+                            render={props => (
+                                <div
+                                    style={{
+                                        background: "#d8f2c1",
+                                        height: "100%",
+                                        width: "100%"
+                                    }}
+                                >
+                                    <FindBros />
+                                </div>
+                            )}
+                        />
+
+                        <Route
+                            path="/friends"
+                            render={props => (
+                                <div
+                                    style={{
+                                        background: "#d8f2c1",
+                                        height: "100%",
+                                        width: "100%"
+                                    }}
+                                >
+                                    <Friends />
+                                </div>
+                            )}
+                        />
+
+                        <Route
+                            path="/chat"
+                            render={props => (
+                                <div
+                                    style={{
+                                        background: "#d8f2c1",
+                                        height: "100%",
+                                        width: "100%"
+                                    }}
+                                >
+                                    <Chat />
+                                </div>
+                            )}
+                        />
                     </div>
                 </div>
             </BrowserRouter>

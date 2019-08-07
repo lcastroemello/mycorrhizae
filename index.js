@@ -328,13 +328,9 @@ io.on("connection", socket => {
     (async () => {
         try {
             let messages = await db.getLast10Messages();
-
-            for (var i = 0; i < messages.rows.length; i++) {
-                messages.rows[i].created_at = moment(
-                    messages.rows[i].created_at,
-                    moment.ISO_8601
-                ).fromNow();
-            }
+            messages.rows.forEach(i => {
+                i.created_at = moment(i.created_at, moment.ISO_8601).fromNow();
+            });
             console.log("testing messages after moment", messages.rows);
             io.emit("chatMessages", messages.rows);
         } catch (err) {

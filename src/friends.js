@@ -19,16 +19,33 @@ export default function Friends() {
     }, []);
 
     return (
-        <div>
+        <div style={{ padding: "1rem 2rem 2rem 2rem" }}>
             <div
                 className="wannabes"
-                style={{ borderBottom: "solid 2px black" }}
+                style={{
+                    borderBottom: "solid 2px black",
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr",
+                    gridTemplateRows: "5rem 1fr",
+                    justifyItems: "center"
+                }}
             >
-                <h1>Check who wants to be a branch in your tree!</h1>
+                <h1 style={{ gridRow: "1/2", gridColumn: "1/6" }}>
+                    Check who wants to be a branch in your tree!
+                </h1>
                 {wannabes &&
                     wannabes.map(wannabes => {
                         return (
-                            <div key={wannabes.id}>
+                            <div
+                                key={wannabes.id}
+                                style={{
+                                    display: "flex",
+                                    gridRow: "2/3",
+                                    flexDirection: "column",
+                                    justifyItems: "center",
+                                    alignItems: "center"
+                                }}
+                            >
                                 <Link to={`/user/${wannabes.id}`}>
                                     <img
                                         style={{
@@ -39,11 +56,16 @@ export default function Friends() {
                                         src={wannabes.picture}
                                     />
                                 </Link>
-                                <h1>
+                                <h2>
                                     {wannabes.first} {wannabes.last}
-                                </h1>
+                                </h2>
 
                                 <p
+                                    style={{
+                                        border: "black 1px dotted",
+                                        padding: "0.2rem",
+                                        margin: 0
+                                    }}
                                     onClick={e =>
                                         dispatch(acceptRequest(wannabes.id))
                                     }
@@ -51,6 +73,10 @@ export default function Friends() {
                                     Add this branch to your tree!
                                 </p>
                                 <p
+                                    style={{
+                                        border: "black 1px dotted",
+                                        padding: "0.2rem"
+                                    }}
                                     onClick={e =>
                                         dispatch(endFriendship(wannabes.id))
                                     }
@@ -62,12 +88,31 @@ export default function Friends() {
                     })}
             </div>
 
-            <div className="friends">
-                <h1>Branches in your friend tree!</h1>
+            <div
+                className="friends"
+                style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr",
+                    gridTemplateRows: "5rem 1fr",
+                    justifyItems: "center"
+                }}
+            >
+                <h1 style={{ gridRow: "1/2", gridColumn: "1/6" }}>
+                    Branches in your friend tree!
+                </h1>
                 {friends &&
                     friends.map(friends => {
                         return (
-                            <div key={friends.id}>
+                            <div
+                                key={friends.id}
+                                style={{
+                                    display: "flex",
+                                    gridRow: "2/3",
+                                    flexDirection: "column",
+                                    justifyItems: "center",
+                                    alignItems: "center"
+                                }}
+                            >
                                 <img
                                     style={{
                                         objectFit: "cover",
@@ -76,10 +121,14 @@ export default function Friends() {
                                     }}
                                     src={friends.picture}
                                 />
-                                <h3>
+                                <h2>
                                     {friends.first} {friends.last}
-                                </h3>
+                                </h2>
                                 <p
+                                    style={{
+                                        border: "black 1px dotted",
+                                        padding: "0.2rem"
+                                    }}
                                     onClick={e =>
                                         dispatch(endFriendship(friends.id))
                                     }

@@ -27,11 +27,27 @@ export default function FindBros() {
         [val]
     );
     return (
-        <div>
+        <div
+            style={{
+                display: "grid",
+                justifyItems: "center",
+                alignItems: "center"
+            }}
+        >
             <h1>FIND BUDDY BRANCHES</h1>
-            {firstRender && (
+            {firstRender && <h2>Are you looking for someone in particular?</h2>}
+            <div>
+                <div
+                    style={{
+                        paddingBottom: 2 + "rem",
+                        display: "grid",
+                        justifyItems: "center"
+                    }}
+                >
+                    <input onChange={e => setVal(e.target.value)} />
+                </div>
                 <div>
-                    <h2>Checkout our new sprouts!</h2>
+                    {firstRender && <h2>Checkout our new sprouts!</h2>}
                     <div>
                         {users &&
                             users.map(users => {
@@ -40,7 +56,8 @@ export default function FindBros() {
                                         key={users.id}
                                         style={{
                                             display: "grid",
-                                            gridTemplateColumns: "5rem 1fr"
+                                            gridTemplateColumns: "5rem 1fr",
+                                            justifyItems: "center"
                                         }}
                                     >
                                         <Link to={`/user/${users.id}`}>
@@ -48,7 +65,8 @@ export default function FindBros() {
                                                 style={{
                                                     gridColumn: 1 / 2,
                                                     height: 5 + "rem",
-                                                    width: 3.8 + "rem"
+                                                    width: 5 + "rem",
+                                                    objectFit: "cover"
                                                 }}
                                                 src={users.picture}
                                                 alt={`${users.first} ${
@@ -66,54 +84,8 @@ export default function FindBros() {
                                     </div>
                                 );
                             })}
-                        <h2>Are you looking for someone in particular?</h2>
                     </div>
                 </div>
-            )}
-            <div>
-                <div style={{ paddingBottom: 2 + "rem" }}>
-                    <input onChange={e => setVal(e.target.value)} />
-                </div>
-                {!firstRender && (
-                    <div>
-                        <div>
-                            {users &&
-                                users.map(users => {
-                                    return (
-                                        <div
-                                            key={users.id}
-                                            style={{
-                                                display: "grid",
-                                                gridTemplateColumns: "5rem 1fr"
-                                            }}
-                                        >
-                                            <Link to={`/user/${users.id}`}>
-                                                <img
-                                                    style={{
-                                                        gridColumn: 1 / 2,
-                                                        height: 5 + "rem",
-                                                        width: 3.8 + "rem"
-                                                    }}
-                                                    src={users.picture}
-                                                    alt={`${users.first} ${
-                                                        users.last
-                                                    }`}
-                                                />
-                                            </Link>
-                                            <h3
-                                                style={{
-                                                    gridColumn: 2 / 3
-                                                }}
-                                            >
-                                                {users.first}
-                                                {users.last}
-                                            </h3>
-                                        </div>
-                                    );
-                                })}
-                        </div>
-                    </div>
-                )}
             </div>
         </div>
     );

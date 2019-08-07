@@ -36,7 +36,7 @@ export default function(state = {}, action) {
     if (action.type == "GET_CHAT_MESSAGES") {
         state = {
             ...state,
-            chatMessages: action.msgs
+            chatMessages: action.msgs.reverse()
         };
     }
 
