@@ -9,7 +9,7 @@ export const init = store => {
 
         socket.on("groupMessages", msgs => {
             store.dispatch(groupMessages(msgs));
-            console.log("socket 2 on get messages works");
+            console.log("socket 2 on get messages works", msgs);
         });
 
         socket.on("newGroupMessage", msg => {

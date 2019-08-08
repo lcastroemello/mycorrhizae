@@ -11,6 +11,7 @@ import FindBros from "./findpeople";
 import Friends from "./friends";
 import Chat from "./chat";
 import GroupChat from "./groupChat";
+import ProfileEditor from "./profileeditor";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -19,10 +20,16 @@ export default class App extends React.Component {
             uploaderIsVisible: false,
             bio: ""
         };
+        this.editprofile = this.editprofile.bind(this);
     } //end of constructor
     async componentDidMount() {
         const { data } = await axios.get("/user");
         this.setState(data);
+    }
+
+    editprofile(newprofiledetails) {
+        console.log("testing state in app", this.state);
+        this.setState(newprofiledetails);
     }
 
     render() {
@@ -183,6 +190,19 @@ export default class App extends React.Component {
                                                 done={bio =>
                                                     this.setState({ bio })
                                                 }
+                                                close={() =>
+                                                    this.setState({
+                                                        editing: false
+                                                    })
+                                                }
+                                            />
+                                        }
+                                        profileEditor={
+                                            <ProfileEditor
+                                                first={this.state.first}
+                                                last={this.state.last}
+                                                group_tag={this.state.group_tag}
+                                                done={this.editprofile}
                                                 close={() =>
                                                     this.setState({
                                                         editing: false

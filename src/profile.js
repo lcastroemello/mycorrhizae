@@ -2,6 +2,7 @@ import React from "react";
 
 import ProfilePic from "./profilepic";
 import BioEditor from "./bioeditor";
+import ProfileEditor from "./profileeditor";
 
 export default function Profile(props) {
     return (
@@ -21,16 +22,17 @@ export default function Profile(props) {
                     gridColumn: 2 / 3
                 }}
             >
-                <h2
+                <h1
                     style={{
                         padding: 0,
-                        color: "#334431",
+                        color: "#67912d",
                         fontFamily: "Lacquer, sans-serif"
                     }}
                 >
                     {props.first} {props.last}
-                </h2>
+                </h1>
                 {props.bioEditor}
+                {props.profileEditor}
             </div>
         </div>
     );

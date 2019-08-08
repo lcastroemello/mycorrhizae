@@ -189,10 +189,44 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
 //--------------Add/Edit bio-------------------------------------------
 app.post("/bio", async (req, res) => {
     try {
-        let storebio = db.updateBio(req.body.bio, req.session.userId);
+        let storebio = await db.updateBio(req.body.bio, req.session.userId);
         res.json({ success: true });
     } catch (err) {
         console.log("err in post bio", err);
+    }
+});
+
+//----------------------Edit profile---------------------------------
+app.post("/editprofile", async function(req, res) {
+    console.log("testing edit profile body", req.body);
+    const { first, last, group_classes, pass, confpass } = req.body;
+    try {
+        let previousInfo = await db.getUserById(req.session.userId);
+        console.log("testing previous info", previousInfo);
+        console.log("testing pass", pass);
+        let hash;
+        if (pass && pass === confpass) {
+            hash = await hashPassword(pass);
+            console.log("PASS MATCH");
+        } else if (pass && pass !== confpass) {
+            console.log("pass no match");
+            res.json({ passconf: false });
+            hash = previousInfo.rows[0].password_digest;
+        } else if (!pass) {
+            hash = previousInfo.rows[0].password_digest;
+            console.log("no pass change");
+        }
+        await db.updateProfile(
+            first,
+            last,
+            group_classes,
+            hash,
+            req.session.userId
+        );
+        res.json({ success: true });
+    } catch (err) {
+        console.log("edit profile post err", err);
+        res.json({ success: false });
     }
 });
 
@@ -391,8 +425,12 @@ groupchat.on("connection", function(socket) {
             messages.rows.forEach(i => {
                 i.created_at = moment(i.created_at, moment.ISO_8601).fromNow();
             });
-            console.log("testing get group msg", messages.rows);
-            groupchat.to(groupname).emit("groupMessages", messages.rows);
+            console.log("this is messages row", messages.rows);
+            if (messages.rows.length == 0) {
+                groupchat.to(groupname).emit("groupMessages", usergroup);
+            } else {
+                groupchat.to(groupname).emit("groupMessages", messages.rows);
+            }
 
             // adding each chat message to database and chat
 
