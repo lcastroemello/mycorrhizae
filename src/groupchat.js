@@ -6,30 +6,44 @@ import { Route, BrowserRouter, Link } from "react-router-dom";
 export default function GroupChat() {
     //getting the initial messages
     const groupMessages = useSelector(state => state && state.groupMessages);
-    console.log("this is group messages", groupMessages);
+    console.log("testing groupmessages", groupMessages);
 
     //sending messages
     const keyCheck = e => {
         if (e.key === "Enter") {
             e.preventDefault();
-            console.log("enter was pressed", e.target.value);
             console.log("this is socket", socket);
             socket.emit("newGroupMessage", e.target.value);
             e.target.value = "";
         }
     };
 
+    let usergroup;
+    try {
+        if (groupMessages && Array.isArray(groupMessages)) {
+            usergroup = groupMessages[0].sender_group;
+        } else if (groupMessages) {
+            usergroup = groupMessages;
+        }
+    } catch (err) {
+        console.log(err);
+    }
+
     //defining the group title
     let group;
-    if (groupMessages && groupMessages[0].sender_group == "amateur") {
+    if (usergroup == "amateur") {
         group = "You just joined the chat for amateur gardners";
-    } else if (groupMessages && groupMessages[0].sender_group == "pro") {
+    } else if (usergroup == "pro") {
+        console.log("groupmessages", groupMessages);
         group =
             "You just joined the chat for professionals (gardners, farmers, agronomists)";
-    } else if (groupMessages && groupMessages[0].sender_group == "curious") {
+    } else if (usergroup == "curious") {
         group = "You just joined the chat for curious gardners";
-    } else {
+
+        console.log("joined the curious gardners");
+    } else if (!usergroup) {
         group = "";
+        console.log("something is wrong");
     }
 
     //Making our chat always start on the end of the scrow (newer messages)
@@ -69,6 +83,7 @@ export default function GroupChat() {
                 }}
             >
                 {groupMessages &&
+                    Array.isArray(groupMessages) &&
                     groupMessages.map(groupMessages => {
                         return (
                             <div

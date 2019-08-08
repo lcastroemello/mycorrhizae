@@ -425,7 +425,12 @@ groupchat.on("connection", function(socket) {
             messages.rows.forEach(i => {
                 i.created_at = moment(i.created_at, moment.ISO_8601).fromNow();
             });
-            groupchat.to(groupname).emit("groupMessages", messages.rows);
+            console.log("this is messages row", messages.rows);
+            if (messages.rows.length == 0) {
+                groupchat.to(groupname).emit("groupMessages", usergroup);
+            } else {
+                groupchat.to(groupname).emit("groupMessages", messages.rows);
+            }
 
             // adding each chat message to database and chat
 
