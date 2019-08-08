@@ -31,7 +31,7 @@ export default function Chat() {
                 padding: "2rem"
             }}
         >
-            <h1>Talk with all the branches in our tree!</h1>
+            <h1>🌱 Talk with all the branches in our tree! 🌱</h1>
             <div
                 className="chat-container"
                 ref={elemRef}
@@ -148,26 +148,29 @@ export default function Chat() {
                     padding: "2rem"
                 }}
                 onKeyDown={keyCheck}
-                placeholder="Add your message here"
+                placeholder="Add your message here and press ENTER to send"
             />
             <style type="text/css">
                 .link{`{color:#67912d;}`}
                 .link:hover {`{color:#334431;}`}
             </style>
-            <BrowserRouter>
-                <Link
-                    className="link"
-                    style={{
-                        textDecoration: "none",
-                        fontFamily: "Lacquer, sans-serif",
-                        fontSize: "1rem"
-                    }}
-                    to="/groupchat"
-                >
-                    Feel like talking with your peers? Try our group chats for
-                    amateur gardners, professionals or curious!
-                </Link>
-            </BrowserRouter>
+
+            <Link
+                className="link"
+                style={{
+                    textDecoration: "none",
+                    fontFamily: "Lacquer, sans-serif",
+                    fontSize: "1rem",
+                    border: "dotted 1px #334431",
+                    width: "10rem",
+                    padding: "0.5rem"
+                }}
+                to="/groupchat"
+            >
+                Feel like talking with your peers? <br /> Try our group chats
+                and talk only with people sharing your group (amateur gardner,
+                professional or curious)!
+            </Link>
         </div>
     );
 }

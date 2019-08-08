@@ -1,10 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { socket } from "./groupsocket";
 import { useSelector } from "react-redux";
+import { Route, BrowserRouter, Link } from "react-router-dom";
 
 export default function GroupChat() {
+    //getting the initial messages
     const groupMessages = useSelector(state => state && state.groupMessages);
     console.log("this is group messages", groupMessages);
+
+    //sending messages
     const keyCheck = e => {
         if (e.key === "Enter") {
             e.preventDefault();
@@ -14,6 +18,19 @@ export default function GroupChat() {
             e.target.value = "";
         }
     };
+
+    //defining the group title
+    let group;
+    if (groupMessages && groupMessages[0].sender_group == "amateur") {
+        group = "You just joined the chat for amateur gardners";
+    } else if (groupMessages && groupMessages[0].sender_group == "pro") {
+        group =
+            "You just joined the chat for professionals (gardners, farmers, agronomists)";
+    } else if (groupMessages && groupMessages[0].sender_group == "curious") {
+        group = "You just joined the chat for curious gardners";
+    } else {
+        group = "";
+    }
 
     //Making our chat always start on the end of the scrow (newer messages)
     const elemRef = useRef();
@@ -31,7 +48,15 @@ export default function GroupChat() {
                 padding: "2rem"
             }}
         >
-            <h1>Talk with all the branches in our tree!</h1>
+            <h1
+                style={{
+                    display: "grid",
+                    textAlign: "center",
+                    alignItems: "center"
+                }}
+            >
+                🌱 Talk with leaves in your own branch! 🌱 <br /> {group}
+            </h1>
             <div
                 className="chat-container"
                 ref={elemRef}
@@ -108,8 +133,28 @@ export default function GroupChat() {
                     padding: "2rem"
                 }}
                 onKeyDown={keyCheck}
-                placeholder="Add your message here"
+                placeholder="Add your message here and press ENTER to send"
             />
+            <br />
+            <style type="text/css">
+                .link{`{color:#67912d;}`}
+                .link:hover {`{color:#334431;}`}
+            </style>
+            <Link
+                className="link"
+                style={{
+                    textDecoration: "none",
+                    fontFamily: "Lacquer, sans-serif",
+                    fontSize: "1rem",
+                    border: "dotted 1px #334431",
+                    width: "10rem",
+                    padding: "0.5rem"
+                }}
+                to="/chat"
+            >
+                Tired of talking with your peers? <br /> Go back to the general
+                chat!
+            </Link>
         </div>
     );
 }

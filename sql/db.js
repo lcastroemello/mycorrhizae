@@ -128,9 +128,10 @@ exports.getLast10Messages = function getLast10Messages() {
     );
 };
 
-exports.getLast10GroupMessages = function getLast10GroupMessages() {
+exports.getLast10GroupMessages = function getLast10GroupMessages(group) {
     return db.query(
-        "SELECT groupchat.id, sender_group, sender_id, message, groupchat.created_at, first, last, picture FROM groupchat  JOIN users ON users.id = sender_id ORDER BY groupchat.id DESC LIMIT 10"
+        "SELECT groupchat.id, sender_group, sender_id, message, groupchat.created_at, first, last, picture FROM groupchat JOIN users ON users.id = sender_id WHERE sender_group = $1 ORDER BY groupchat.id ASC LIMIT 10",
+        [group]
     );
 };
 
