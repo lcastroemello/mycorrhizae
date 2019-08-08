@@ -42,14 +42,14 @@ export default class BioEditor extends React.Component {
                             X
                         </p>
 
-                        <h2 style={{ color: "#334431" }}>
+                        <h3 style={{ color: "#334431", width: "50rem" }}>
                             Tell us about yourself! What are your current plans
                             related to urban agriculture or gardening? What are
                             you expecting from our community? Plant your seeds
                             here!
-                        </h2>
+                        </h3>
                         <textarea
-                            style={{ height: "30rem", width: "30rem" }}
+                            style={{ height: "20rem", width: "50rem" }}
                             onChange={({ target }) => {
                                 this.setState({ draft: target.value });
                             }}

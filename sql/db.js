@@ -30,6 +30,13 @@ exports.updateImg = function updateImg(url, id) {
 exports.updateBio = function updateBio(bio, id) {
     return db.query("UPDATE users SET bio = $1 WHERE id=$2", [bio, id]);
 };
+
+exports.updateProfile = function updateProfile(first, last, group, hash, id) {
+    return db.query(
+        "UPDATE users SET first = $1, last =$2, group_tag =$3, password_digest = $4 WHERE id=$5",
+        [first, last, group, hash, id]
+    );
+};
 //--------GETTING INFO from users--------------
 
 exports.getUserByEmail = function getUserbyEmail(email) {
@@ -38,7 +45,7 @@ exports.getUserByEmail = function getUserbyEmail(email) {
 
 exports.getUserById = function getUserById(id) {
     return db.query(
-        "SELECT id, first, last, group_tag, picture, bio FROM users WHERE id=$1",
+        "SELECT id, first, last, password_digest, group_tag, picture, bio FROM users WHERE id=$1",
         [id]
     );
 };
