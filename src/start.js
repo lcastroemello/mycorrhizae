@@ -6,8 +6,8 @@ import { createStore, applyMiddleware } from "redux";
 import reduxPromise from "redux-promise";
 import reducer from "./reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
-// import { init } from "./socket";
-import { init } from "./groupsocket";
+import { init } from "./socket";
+import { init as initgroup } from "./groupsocket";
 
 import Welcome from "./Welcome";
 import App from "./app";
@@ -17,11 +17,6 @@ const store = createStore(
     composeWithDevTools(applyMiddleware(reduxPromise))
 );
 
-// const groupstore = createStore(
-//     reducer,
-//     composeWithDevTools(applyMiddleware(reduxPromise))
-// );
-
 let elem;
 if (location.pathname == "/welcome") {
     //they are logged out
@@ -29,8 +24,7 @@ if (location.pathname == "/welcome") {
 } else {
     //they are logged in
     init(store);
-    // init2(groupstore);
-    // init2(store);
+    initgroup(store);
     elem = (
         <Provider store={store}>
             <App />

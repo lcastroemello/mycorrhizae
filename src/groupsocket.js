@@ -2,9 +2,6 @@ import { groupMessages, newGroupMessage } from "./actions";
 import * as io from "socket.io-client";
 
 export let socket;
-// socket.on("hi", function(data) {
-//     console.log("test for socket", data);
-// });
 
 export const init = store => {
     if (!socket) {
