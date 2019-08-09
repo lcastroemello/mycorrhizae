@@ -31,12 +31,7 @@ export default function GroupChat() {
 
     //defining the group title
     let group;
-<<<<<<< HEAD
-    console.log("testing groupmessages", groupMessages);
-    if (groupMessages && groupMessages[0].sender_group == "amateur") {
-=======
     if (usergroup == "amateur") {
->>>>>>> editprofile
         group = "You just joined the chat for amateur gardners";
     } else if (usergroup == "pro") {
         console.log("groupmessages", groupMessages);

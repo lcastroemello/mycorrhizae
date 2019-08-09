@@ -26,6 +26,12 @@ export default function FindBros() {
         },
         [val]
     );
+    // let userpic;
+    // if (users.picture) {
+    //     userpic = users.picture;
+    // } else {
+    //     userpic = "./static/default.png";
+    // }
     return (
         <div
             style={{
