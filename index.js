@@ -344,7 +344,7 @@ app.get("*", function(req, res) {
 
 // ------------------STARTING OUR SERVER ---------------------
 
-server.listen(8080, function() {
+server.listen(process.env.PORT || 8080, function() {
     ca.neon("Reacting to your wishes hon");
 });
 
@@ -353,7 +353,6 @@ io.on("connection", socket => {
     console.log(`socket with id ${socket.id} is now connected`);
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
-        console.log("socket disconnecting");
     }
     const userId = socket.request.session.userId;
 

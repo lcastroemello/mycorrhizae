@@ -4,7 +4,12 @@ let db;
 // if (process.env.DATABASE_URL) {
 //     db = spicedPg(process.env.DATABASE_URL);
 // } else {
-db = spicedPg(`postgres:postgres:postgres@localhost:5432/socialmedia`);
+
+var dbUrl =
+    process.env.DATABASE_URL ||
+    "postgres://postgres:postgres@localhost:5432/socialmedia";
+
+db = spicedPg(dbUrl);
 // }
 
 //-------ADDING info to users-------------
