@@ -12,6 +12,8 @@
 --     bio VARCHAR (2000),
 --     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 -- );
+--
+-- SELECT * FROM users;
 
 
 -------------------FRIENDSHIP BUTTON ------------------------------
@@ -42,15 +44,15 @@
 
 -------------------------PRIVATE CHAT-------------------------------------
 
-DROP TABLE IF EXISTS groupChat;
-
-CREATE TABLE groupChat (
-    id SERIAL PRIMARY KEY,
-    sender_id INT NOT NULL REFERENCES users(id),
-    sender_group VARCHAR(255) NOT NULL,
-    message VARCHAR (100000),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
-);
-
-SELECT * FROM groupChat;
+-- DROP TABLE IF EXISTS groupChat;
+--
+-- CREATE TABLE groupChat (
+--     id SERIAL PRIMARY KEY,
+--     sender_id INT NOT NULL REFERENCES users(id),
+--     sender_group VARCHAR(255) NOT NULL,
+--     message VARCHAR (100000),
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+--
+-- );
+--
+-- SELECT * FROM groupChat;
